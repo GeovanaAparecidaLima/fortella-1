@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotas - Compartilhar</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f0f0f0; }
+        .container { max-width: 375px; width: 100%; height: 100vh; background-color: #fff; border-radius: 0; box-shadow: none; overflow: hidden; display: flex; flex-direction: column; }
+        #map { height: 50%; }
+        .share-panel { flex-grow: 1; background-color: #eee; padding: 20px; display: flex; flex-direction: column; }
+        h3 { margin-top: 0; color: #333; text-align: center; text-transform: uppercase; }
+        .people-row, .social-row { display: flex; justify-content: space-around; align-items: center; padding: 10px 0; }
+        .people-row { border-bottom: 1px solid #ccc; }
+        .person, .social-icon { text-align: center; cursor: pointer; transition: transform 0.2s; }
+        .person:hover, .social-icon:hover { transform: scale(1.1); }
+        .person img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #aaa; }
+        .person span { display: block; font-size: 0.8em; color: #555; margin-top: 5px; }
+        .social-icon img { width: 40px; height: 40px; cursor: pointer; }
+        @media (min-width: 600px) { .container { max-width: 375px; height: 667px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="map"></div>
+        <div class="share-panel">
+            <h3>compartilhar rota</h3>
+            <div class="people-row">
+                <div class="person">
+                    <img src="contt.png" alt="Mãe" onclick="alert('Compartilhando com a Mãe!')">
+                    <span>mãe</span>
+                </div>
+                <div class="person">
+                    <img src="contt.png" alt="Pai" onclick="alert('Compartilhando com o Pai!')">
+                    <span>pai</span>
+                </div>
+                <div class="person">
+                    <img src="contt.png" alt="Irmã" onclick="alert('Compartilhando com a Irmã!')">
+                    <span>irmã</span>
+                </div>
+            </div>
+            <div class="social-row">
+                <div class="social-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" alt="WhatsApp" onclick="shareRoute()">
+                </div>
+                <div class="social-icon">
+                    <img src="face.png" alt="Facebook" onclick="shareRoute()">
+                </div>
+                <div class="social-icon">
+                    <img src="insta.png" alt="Instagram" onclick="shareRoute()">
+                </div>
+                <div class="social-icon">
+                    <img src="email.png" alt="Email" onclick="shareRoute()">
+                </div>
+                <div class="social-icon">
+                    <img src="telegram.png" alt="Telegram" onclick="shareRoute()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const map = L.map('map').setView([-23.5505, -46.6333], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors' }).addTo(map);
+        function loadRoute() {
+            const startCoords = JSON.parse(localStorage.getItem('startCoords'));
+            const endCoords = JSON.parse(localStorage.getItem('endCoords'));
+            if (startCoords && endCoords) {
+                const routeCoords = [startCoords, endCoords];
+                L.polyline(routeCoords, { color: '#0055ff', weight: 6 }).addTo(map);
+                map.fitBounds(L.polyline(routeCoords).getBounds());
+            } else {
+                alert('Rota não encontrada.');
+            }
+        }
+        function shareRoute() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Minha Rota Segura',
+                    text: 'Cheguei com segurança ao meu destino. Veja a rota que eu fiz!',
+                    url: window.location.href
+                })
+                .then(() => console.log('Conteúdo compartilhado com sucesso.'))
+                .catch((error) => console.error('Erro ao compartilhar:', error));
+            } else {
+                alert('A função de compartilhamento não está disponível neste navegador.');
+            }
+        }
+        document.addEventListener('DOMContentLoaded', loadRoute);
+    </script>
+</body>
+</html>

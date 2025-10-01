@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escolher Rota</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f0f0f0;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+.container{width:100%;max-width:420px;height:100vh;background:#1a1a1a;display:flex;flex-direction:column;}
+.header{color:#fff;text-align:center;padding:16px;font-size:1.4rem;font-weight:bold;}
+.content-area{flex-grow:1;padding:12px;display:flex;flex-direction:column;gap:16px;}
+.map-container{flex-grow:1;border-radius:10px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.15);}
+#map{height:100%;width:100%;}
+.route-button{background:#7b0033;color:#fff;padding:16px;border:none;border-radius:10px;font-size:1.1rem;font-weight:bold;cursor:pointer;margin:16px;transition:0.3s;}
+.route-button:hover{background:#5f0028;}
+</style>
+</head>
+<body>
+<div class="container">
+    <header class="header">Escolher Rota</header>
+    <div class="content-area">
+        <div class="map-container"><div id="map"></div></div>
+        <button class="route-button" onclick="startRoute()">🛣️ Iniciar Rota</button>
+    </div>
+</div>
+
+<script>
+const map = L.map('map').setView([-23.5505,-46.6333],13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:'© OpenStreetMap contributors'
+}).addTo(map);
+
+// Pegar coordenadas iniciais e finais do localStorage
+const startCoords = JSON.parse(localStorage.getItem('startCoords'));
+const endCoords = JSON.parse(localStorage.getItem('endCoords'));
+
+if(!startCoords || !endCoords){
+    alert('Coordenadas não encontradas. Volte à tela anterior.');
+}
+
+// Adicionar marcadores
+L.marker(startCoords).addTo(map).bindPopup('Você está aqui').openPopup();
+L.marker(endCoords).addTo(map).bindPopup('Destino');
+
+// Ajustar mapa para exibir os dois pontos
+map.fitBounds(L.featureGroup([L.marker(startCoords), L.marker(endCoords)]).getBounds().pad(0.5));
+
+// Função para desenhar rotas
+function drawRoute(color, offset=0){
+    fetch(`https://router.project-osrm.org/route/v1/driving/${startCoords[1]},${startCoords[0]};${endCoords[1]},${endCoords[0]}?overview=full&geometries=geojson&alternatives=true`)
+    .then(res=>res.json())
+    .then(data=>{
+        // Pega cada rota alternativa
+        const routes = data.routes;
+        if(routes.length > offset){
+            const coords = routes[offset].geometry.coordinates.map(c=>[c[1], c[0]]);
+            L.polyline(coords, {color:color, weight:6, opacity:0.8}).addTo(map);
+        }
+    })
+    .catch(err=>console.error(err));
+}
+
+// Desenhar as três rotas
+drawRoute('blue', 0);   // Caminho seguro
+drawRoute('yellow', 1); // Acidente ambiental
+drawRoute('red', 2);    // Acidente em andamento
+
+function startRoute(){
+    // Salvar rota selecionada como default (caminho seguro azul)
+    localStorage.setItem('routeType','blue');
+    window.location.href='rotas3.html';
+}
+</script>
+</body>
+</html>
