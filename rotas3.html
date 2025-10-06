@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rota Segura - Etapa 3</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0F171C;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            background-color: #122026;
+            margin: 0;
+            padding: 10px;
+        }
+
+        #map {
+            height: 400px;
+            width: 90%;
+            margin: 15px auto;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .menu {
+            background-color: #f3f3f3;
+            border-radius: 20px;
+            width: 90%;
+            margin: 10px auto;
+            padding: 15px;
+            color: black;
+        }
+
+        button {
+            width: 90%;
+            margin: 5px auto;
+            display: block;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .alterar {
+            background-color: #780C28;
+        }
+
+        .iniciar {
+            background-color: #527D6F;
+        }
+
+        .compartilhar {
+            background-color: #780C28;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Rotas Seguras</h2>
+
+    <div id="map"></div>
+
+    <div class="menu">
+          <div style="font-size: 22px;">🧭🚶‍♀️🚴‍♂️</div>
+          <button class="alterar" onclick="alterarRota()">Alterar Rota</button>
+          <button class="iniciar" onclick="iniciarTrajeto()">Iniciar trajeto seguro</button>
+          <button class="compartilhar" onclick="compartilharRota()">Compartilhar rota</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script>
+        let map = L.map('map').setView([-23.3103, -51.1628], 14); // Padrão Londrina
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        let routeLayer;
+
+        // Recupera dados da rota da tela anterior
+        const rotaSelecionada = JSON.parse(localStorage.getItem("rotaSelecionada"));
+
+        if (rotaSelecionada) {
+            mostrarRota(rotaSelecionada);
+        } else {
+            alert("Nenhuma rota selecionada. Voltando à tela anterior.");
+            window.location.href = "rotas2.html"; // CORRIGIDO: rotas2.html
+        }
+
+        // Exibe a rota no mapa usando OSRM
+        function mostrarRota(coords) {
+            if (routeLayer) map.removeLayer(routeLayer);
+
+            const [origem, destino] = coords;
+            const url = `https://router.project-osrm.org/route/v1/driving/${origem[1]},${origem[0]};${destino[1]},${destino[0]}?overview=full&geometries=geojson`;
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    const route = data.routes[0];
+                    const line = L.geoJSON(route.geometry, {
+                        style: { color: "#527D6F", weight: 5 }
+                    }).addTo(map);
+
+                    // Adiciona marcadores de origem e destino
+                    L.marker(origem).addTo(map).bindPopup("Origem");
+                    L.marker(destino).addTo(map).bindPopup("Destino");
+
+                    routeLayer = line;
+                    map.fitBounds(line.getBounds(), { padding: [50, 50] });
+                })
+                .catch(err => console.error("Erro ao carregar rota:", err));
+        }
+
+        // Botões:
+        function alterarRota() {
+            window.location.href = "rotas2.html"; // CORRIGIDO: rotas2.html
+        }
+
+        function iniciarTrajeto() {
+            alert("Iniciando trajeto seguro...");
+            window.location.href = "rota4.html"; // Mantido o nome original para a próxima tela
+        }
+
+        function compartilharRota() {
+            if (navigator.share) {
+                navigator.share({
+                    title: "Minha rota segura",
+                    text: "Confira minha rota segura!",
+                    url: window.location.href
+                });
+            } else {
+                alert("Compartilhamento não suportado neste dispositivo.");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
