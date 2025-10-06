@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rotas Seguras</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0F171C;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #1b2a30;
+      border-radius: 20px;
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #EAEAEA;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 90%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #acidente { background-color: #b22222; }
+    #arvore { background-color: #d1bf00; color: black; }
+    #seguro { background-color: #0044cc; }
+
+    #map {
+      width: 100%;
+      height: 250px;
+      border-radius: 15px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Rotas Seguras</h2>
+    <button id="acidente">Acidente em andamento</button>
+    <button id="arvore">Árvore no caminho</button>
+    <button id="seguro">Caminho seguro</button>
+    <div id="map"></div>
+  </div>
+
+  <script>
+    let map, routeLayer;
+    const destino = localStorage.getItem('destino');
+    const userLat = parseFloat(localStorage.getItem('userLat'));
+    const userLng = parseFloat(localStorage.getItem('userLng'));
+
+    function initMap() {
+      map = L.map('map').setView([userLat, userLng], 14);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+      }).addTo(map);
+      L.marker([userLat, userLng]).addTo(map).bindPopup("Você está aqui").openPopup();
+    }
+
+    async function mostrarRota(desvio = 0) {
+      if (routeLayer) map.removeLayer(routeLayer);
+
+      // Coordenadas do destino via Nominatim (geocodificação)
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${destino}`);
+      const data = await res.json();
+      if (!data.length) return alert("Destino não encontrado!");
+
+      let destLat = parseFloat(data[0].lat) + (Math.random() * 0.01 - 0.005) * desvio;
+      let destLng = parseFloat(data[0].lon) + (Math.random() * 0.01 - 0.005) * desvio;
+
+      const url = `https://router.project-osrm.org/route/v1/driving/${userLng},${userLat};${destLng},${destLat}?overview=full&geometries=geojson`;
+      const route = await fetch(url).then(r => r.json());
+      const coords = route.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+
+      routeLayer = L.polyline(coords, { color: desvio === 0 ? 'blue' : desvio === 1 ? 'red' : 'green', weight: 5 }).addTo(map);
+      map.fitBounds(routeLayer.getBounds());
+    }
+
+    document.getElementById('acidente').addEventListener('click', () => mostrarRota(1));
+    document.getElementById('arvore').addEventListener('click', () => mostrarRota(2));
+    document.getElementById('seguro').addEventListener('click', () => mostrarRota(0));
+
+    initMap();
+  </script>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</body>
+</html>
