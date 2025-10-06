@@ -1,113 +1,99 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rotas Seguras</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotas Seguras - Etapa 1</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #0F171C;
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      text-align: center;
       margin: 0;
     }
 
-    .container {
-      background-color: #1b2a30;
-      border-radius: 20px;
-      padding: 20px;
-      width: 300px;
-      text-align: center;
-    }
-
     h2 {
-      color: #EAEAEA;
-      margin-bottom: 15px;
-    }
-
-    input {
-      width: 90%;
+      background-color: #122026;
       padding: 10px;
-      border-radius: 10px;
-      border: none;
-      margin-bottom: 10px;
-    }
-
-    button {
-      width: 90%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background-color: #780C28;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    button:hover {
-      background-color: #a2143a;
     }
 
     #map {
-      width: 100%;
-      height: 250px;
-      border-radius: 15px;
-      margin-top: 10px;
+      height: 400px;
+      width: 90%;
+      margin: 15px auto;
+      border-radius: 12px;
+    }
+
+    input,
+    button {
+      width: 90%;
+      padding: 10px;
+      margin: 5px auto;
+      border-radius: 10px;
+      border: none;
+      display: block;
+      font-size: 15px;
+    }
+
+    input {
+      background-color: #EAEAEA;
+    }
+
+    button {
+      background-color: #780C28;
+      color: white;
+      cursor: pointer;
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <h2>Rotas Seguras</h2>
-    <input type="text" id="destino" placeholder="Destino..." />
-    <div id="map"></div>
-    <button id="mostrarRota">Mostrar caminho seguro</button>
-  </div>
 
+  <h2>Rotas Seguras</h2>
+  <input type="text" id="destino" placeholder="Digite o destino...">
+  <div id="map"></div>
+  <button onclick="mostrarRotas()">Mostrar rotas seguras</button>
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
   <script>
-    let map, marker, userLat, userLng;
+    let map = L.map('map').setView([-23.3103, -51.1628], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
-    function initMap(lat, lng) {
-      map = L.map('map').setView([lat, lng], 15);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19
-      }).addTo(map);
+    let localAtual = null;
+    let destinoSelecionado = null;
 
-      marker = L.marker([lat, lng]).addTo(map).bindPopup("Você está aqui").openPopup();
-    }
-
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          userLat = pos.coords.latitude;
-          userLng = pos.coords.longitude;
-          initMap(userLat, userLng);
-        }, () => alert("Não foi possível obter sua localização."));
-      } else {
-        alert("Geolocalização não suportada pelo navegador.");
-      }
-    }
-
-    document.getElementById('mostrarRota').addEventListener('click', () => {
-      const destino = document.getElementById('destino').value.trim();
-      if (!destino) return alert("Digite um destino.");
-      localStorage.setItem('destino', destino);
-      localStorage.setItem('userLat', userLat);
-      localStorage.setItem('userLng', userLng);
-      window.location.href = "rotas2.html";
+    // Obter localização atual do usuário
+    navigator.geolocation.getCurrentPosition(pos => {
+      localAtual = [pos.coords.latitude, pos.coords.longitude];
+      L.marker(localAtual).addTo(map).bindPopup("Você está aqui").openPopup();
+      map.setView(localAtual, 15);
     });
 
-    getLocation();
+    // Escolher destino clicando no mapa
+    map.on('click', e => {
+      if (destinoSelecionado) map.removeLayer(destinoSelecionado);
+      destinoSelecionado = L.marker(e.latlng).addTo(map).bindPopup("Destino").openPopup();
+      document.getElementById('destino').value = `${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`;
+    });
+
+    // Ir para tela 2 com dados salvos
+    function mostrarRotas() {
+      if (!localAtual) return alert("Aguardando localização atual...");
+      if (!destinoSelecionado) return alert("Selecione um destino no mapa!");
+
+      localStorage.setItem("origem", JSON.stringify(localAtual));
+      localStorage.setItem("destino", JSON.stringify([
+        destinoSelecionado.getLatLng().lat,
+        destinoSelecionado.getLatLng().lng
+      ]));
+
+      window.location.href = "rotas2.html"; // CORRIGIDO: rotas2.html
+    }
   </script>
 
-  <!-- Leaflet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </body>
+
 </html>
