@@ -87,6 +87,7 @@
         }).addTo(map);
 
         let routeLayer;
+        let routeCoordinates = null; // Para armazenar a geometria da rota
 
         // Recupera dados da rota da tela anterior
         const rotaSelecionada = JSON.parse(localStorage.getItem("rotaSelecionada"));
@@ -95,7 +96,7 @@
             mostrarRota(rotaSelecionada);
         } else {
             alert("Nenhuma rota selecionada. Voltando à tela anterior.");
-            window.location.href = "rotas2.html"; // CORRIGIDO: rotas2.html
+            window.location.href = "rotas2.html";
         }
 
         // Exibe a rota no mapa usando OSRM
@@ -109,6 +110,10 @@
                 .then(res => res.json())
                 .then(data => {
                     const route = data.routes[0];
+
+                    // CORREÇÃO PRINCIPAL: Salvar as coordenadas da rota (Lon, Lat)
+                    routeCoordinates = route.geometry.coordinates;
+
                     const line = L.geoJSON(route.geometry, {
                         style: { color: "#527D6F", weight: 5 }
                     }).addTo(map);
@@ -125,12 +130,17 @@
 
         // Botões:
         function alterarRota() {
-            window.location.href = "rotas2.html"; // CORRIGIDO: rotas2.html
+            window.location.href = "rotas2.html";
         }
 
         function iniciarTrajeto() {
+            if (!routeCoordinates) return alert("Aguarde o carregamento da rota.");
+
+            // Salva as coordenadas da rota (lista de [lon, lat]) para uso na tela de navegação
+            localStorage.setItem("routePath", JSON.stringify(routeCoordinates));
+
             alert("Iniciando trajeto seguro...");
-            window.location.href = "rota4.html"; // Mantido o nome original para a próxima tela
+            window.location.href = "rotas4.html"; // Próxima tela do trajeto
         }
 
         function compartilharRota() {

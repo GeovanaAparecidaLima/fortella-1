@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotas Seguras - Trajeto</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
+    <style>
+        /* Estilos Gerais (Fundo Escuro) */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0F171C;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Layout do Mapa */
+        #map {
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* Contêiner de Informações (Topo) */
+        .info-container {
+            background-color: #122026;
+            padding: 15px 10px 5px;
+            color: white;
+        }
+
+        .info-field {
+            background-color: #797979;
+            color: black;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        /* Contêiner de Ações (Fundo - com Recentalizar e Reportar) */
+        .action-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 10px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Botões Flutuantes (Recentralizar e Reportar) */
+        .floating-btn {
+            background-color: white;
+            color: black;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+        }
+
+        .recentralizar {
+            background-color: #A0C3C9;
+            color: #122026;
+            margin-left: 5px;
+            margin-bottom: 120px;
+        }
+
+        .reportar {
+            background-color: #FFC000;
+            color: black;
+            margin-right: 5px;
+            margin-bottom: 120px;
+        }
+
+        /* Barra de Navegação Inferior (Tempo e Ações) */
+        .nav-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background-color: #122026;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            z-index: 1000;
+            pointer-events: auto;
+        }
+
+        .nav-info {
+            background-color: #4D4D4D;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 10px;
+            line-height: 1.2;
+        }
+
+        /* Botões Laterais Inferiores (Finalizar/Compartilhar) */
+        .nav-btn {
+            background-color: #4D4D4D;
+            color: white;
+            padding: 12px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .finalizar-btn {
+            background-color: #780C28;
+        }
+
+        .compartilhar-chegada-btn {
+            background-color: #527D6F;
+        }
+
+        /* Estilo para o marcador de localização simulada */
+        .leaflet-marker-icon.user-location-marker {
+            background-color: blue;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="info-container">
+        <div style="font-size: 12px; opacity: 0.8;">Seu local:</div>
+        <div id="localAtual" class="info-field">Localização atual</div>
+        <div style="font-size: 12px; opacity: 0.8;">Destino:</div>
+        <div id="destinoFinal" class="info-field">Casa</div>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="action-bar">
+        <button class="floating-btn recentralizar" onclick="recentralizarMapa()">
+            <span style="font-size: 18px;">⌖</span> Recentalizar
+        </button>
+
+        <button class="floating-btn reportar" onclick="alert('Funcionalidade de Reportar não implementada.')">
+            ⚠️ Reportar
+        </button>
+    </div>
+
+
+    <div class="nav-bottom">
+        <button class="nav-btn finalizar-btn" onclick="finalizarRota()">
+            <span style="font-size: 24px;">✕</span>
+        </button>
+
+        <div id="navInfo" class="nav-info">
+            -- min<br>-- m
+        </div>
+
+        <button class="nav-btn compartilhar-chegada-btn" onclick="compartilharChegada()">
+            <span style="font-size: 24px;">⇶</span>
+        </button>
+    </div>
+
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script>
+        let map = L.map('map').setView([-23.3103, -51.1628], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        let routeLayer = null;
+        let userMarker = null;
+        let simulationInterval; // Variável para controlar a simulação
+
+        const rotaSelecionada = JSON.parse(localStorage.getItem("rotaSelecionada"));
+        const routePath = JSON.parse(localStorage.getItem("routePath"));
+        let routeIndex = 0;
+
+        if (rotaSelecionada && routePath && routePath.length > 0) {
+            const [origem, destino] = rotaSelecionada;
+
+            mostrarRota(origem, destino);
+
+            // Ponto inicial (Lon, Lat) -> (Lat, Lon)
+            const pontoInicial = [routePath[0][1], routePath[0][0]];
+            userMarker = L.marker(pontoInicial, {
+                icon: L.divIcon({
+                    className: 'user-location-marker',
+                    iconSize: [16, 16],
+                    html: ''
+                })
+            }).addTo(map).bindPopup("Sua Posição").openPopup();
+
+            // Inicia a simulação
+            simulationInterval = setInterval(simularMovimento, 1000);
+
+        } else {
+            alert("Erro: Rota não carregada corretamente. Retornando.");
+            window.location.href = "rotas3.html";
+        }
+
+        // =========================================================================
+        // FUNÇÕES DE EXIBIÇÃO E RASTREAMENTO
+        // =========================================================================
+
+        function mostrarRota(origem, destino) {
+            if (routeLayer) map.removeLayer(routeLayer);
+
+            const url = `https://router.project-osrm.org/route/v1/driving/${origem[1]},${origem[0]};${destino[1]},${destino[0]}?overview=full&geometries=geojson`;
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    const route = data.routes[0];
+
+                    const line = L.geoJSON(route.geometry, {
+                        style: { color: "#527D6F", weight: 5 }
+                    }).addTo(map);
+
+                    // Adiciona o marcador de destino
+                    L.marker(destino).addTo(map).bindPopup("Destino");
+
+                    routeLayer = line;
+                    map.fitBounds(line.getBounds(), { padding: [100, 100] });
+
+                    // Atualiza info de tempo/distância
+                    const distanciaEmMetros = route.distance.toFixed(0);
+                    const tempoEmSegundos = route.duration.toFixed(0);
+                    const tempoEmMinutos = Math.ceil(tempoEmSegundos / 60);
+
+                    document.getElementById('navInfo').innerHTML = `${tempoEmMinutos} min<br>${distanciaEmMetros} m`;
+                })
+                .catch(err => console.error("Erro ao carregar rota:", err));
+        }
+
+        function simularMovimento() {
+            if (!userMarker || !routePath || routeIndex >= routePath.length) {
+                // Chegou ao destino
+                clearInterval(simulationInterval);
+                userMarker.bindPopup("Destino Alcançado!").openPopup();
+                document.getElementById('navInfo').innerHTML = "Destino Alcançado";
+                return;
+            }
+
+            // Pega as coordenadas [lon, lat] do ponto atual da rota
+            const currentLon = routePath[routeIndex][0];
+            const currentLat = routePath[routeIndex][1];
+
+            // Move o marcador para o próximo ponto da rota (invertendo para [Lat, Lon])
+            userMarker.setLatLng([currentLat, currentLon]);
+
+            // Mantém o mapa centrado no marcador do usuário
+            map.setView([currentLat, currentLon], map.getZoom());
+
+            routeIndex++;
+        }
+
+
+        // =========================================================================
+        // BOTÕES DE AÇÃO (FINALIZAR E COMPARTILHAR)
+        // =========================================================================
+
+        function recentralizarMapa() {
+            if (userMarker) {
+                map.setView(userMarker.getLatLng(), 17);
+            }
+        }
+
+        function finalizarRota() {
+            // Para a simulação **CORREÇÃO**
+            clearInterval(simulationInterval);
+
+            // Limpa os dados salvos **CORREÇÃO**
+            localStorage.removeItem("rotaSelecionada");
+            localStorage.removeItem("routePath");
+            localStorage.removeItem("origem");
+            localStorage.removeItem("destino");
+
+            alert("Trajeto finalizado. Obrigado por usar Rotas Seguras!");
+            window.location.href = "finalizado.html"; // Retorna para a tela inicial
+        }
+
+        function compartilharChegada() {
+            // Para a simulação para obter a posição final **CORREÇÃO**
+            clearInterval(simulationInterval);
+
+            const currentPosition = userMarker ? userMarker.getLatLng() : "Desconhecida";
+
+            if (navigator.share) {
+                navigator.share({
+                    title: "Cheguei ao Destino!",
+                    text: "Acabei de chegar ao meu destino em segurança, usando Rotas Seguras! Localização aproximada: " + JSON.stringify(currentPosition),
+                    url: window.location.href
+                });
+            } else {
+                alert("Chegou ao destino! (Compartilhamento não suportado neste dispositivo. Localização: " + JSON.stringify(currentPosition) + ")");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

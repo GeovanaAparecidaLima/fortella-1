@@ -27,25 +27,51 @@
       border-radius: 12px;
     }
 
+    /* Flex container para campo de destino e botão de busca */
+    .destino-group {
+      display: flex;
+      width: 90%;
+      margin: 5px auto;
+      gap: 5px;
+      /* Espaço entre input e botão */
+    }
+
     input,
     button {
-      width: 90%;
       padding: 10px;
-      margin: 5px auto;
+      margin: 5px 0;
       border-radius: 10px;
       border: none;
-      display: block;
       font-size: 15px;
     }
 
+    /* Estilo para o campo de texto */
     input {
       background-color: #EAEAEA;
+      flex-grow: 1;
+      margin: 0;
     }
 
+    /* Estilo para o botão de buscar/mostrar rotas */
     button {
       background-color: #780C28;
       color: white;
       cursor: pointer;
+      width: 90%;
+      display: block;
+      /* Garante que o botão de rotas ocupe a largura total */
+      margin: 5px auto;
+    }
+
+    /* Novo botão de busca */
+    .btn-buscar {
+      background-color: #527D6F;
+      /* Cor diferente para busca */
+      color: white;
+      padding: 10px 15px;
+      margin: 0;
+      width: auto;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -53,7 +79,10 @@
 <body>
 
   <h2>Rotas Seguras</h2>
-  <input type="text" id="destino" placeholder="Digite o destino...">
+  <div class="destino-group">
+    <input type="text" id="destino" placeholder="Digite o destino ou clique no mapa...">
+    <button class="btn-buscar" onclick="buscarDestino()">🔍</button>
+  </div>
   <div id="map"></div>
   <button onclick="mostrarRotas()">Mostrar rotas seguras</button>
 
@@ -63,34 +92,89 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
     let localAtual = null;
-    let destinoSelecionado = null;
+    let destinoSelecionado = null; // Marcador do Leaflet
+    let destinoCoords = null; // Coordenadas [lat, lon] do destino
+
+    // --- Funções de Marcação e Inicialização ---
+
+    function definirDestino(latlng) {
+      if (destinoSelecionado) map.removeLayer(destinoSelecionado);
+      destinoCoords = [latlng.lat, latlng.lng];
+      destinoSelecionado = L.marker(destinoCoords).addTo(map).bindPopup("Destino").openPopup();
+      map.setView(destinoCoords, 15);
+      document.getElementById('destino').value = `${latlng.lat.toFixed(5)}, ${latlng.lng.toFixed(5)}`;
+    }
 
     // Obter localização atual do usuário
     navigator.geolocation.getCurrentPosition(pos => {
       localAtual = [pos.coords.latitude, pos.coords.longitude];
       L.marker(localAtual).addTo(map).bindPopup("Você está aqui").openPopup();
       map.setView(localAtual, 15);
+    }, (error) => {
+      console.error("Erro ao obter localização: ", error);
+      alert("Não foi possível obter a localização atual. Usando ponto padrão.");
     });
 
     // Escolher destino clicando no mapa
     map.on('click', e => {
-      if (destinoSelecionado) map.removeLayer(destinoSelecionado);
-      destinoSelecionado = L.marker(e.latlng).addTo(map).bindPopup("Destino").openPopup();
-      document.getElementById('destino').value = `${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`;
+      // Ao clicar, o campo de texto é preenchido com as coordenadas
+      definirDestino(e.latlng);
     });
+
+
+    // --- Funcionalidade de Busca (Geocodificação) ---
+
+    function buscarDestino() {
+      const endereco = document.getElementById('destino').value.trim();
+      if (!endereco) {
+        return alert("Digite um endereço ou coordenadas válidas.");
+      }
+
+      // Tenta primeiro parsear como coordenadas (Lat, Lon)
+      const partes = endereco.split(',').map(p => p.trim());
+      if (partes.length === 2 && !isNaN(parseFloat(partes[0])) && !isNaN(parseFloat(partes[1]))) {
+        const lat = parseFloat(partes[0]);
+        const lon = parseFloat(partes[1]);
+        if (lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180) {
+          return definirDestino({ lat, lng: lon });
+        }
+      }
+
+      // Se não for coordenada, usa a API Nominatim para buscar o endereço
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(endereco)}&format=json&limit=1`;
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.length > 0) {
+            const lat = parseFloat(data[0].lat);
+            const lon = parseFloat(data[0].lon);
+            // Define o destino com o resultado da busca
+            definirDestino({ lat, lng: lon });
+            // Atualiza o campo com o nome encontrado (opcional)
+            document.getElementById('destino').value = data[0].display_name;
+          } else {
+            alert("Endereço não encontrado. Tente digitar as coordenadas.");
+          }
+        })
+        .catch(err => {
+          console.error("Erro na geocodificação:", err);
+          alert("Erro ao buscar o endereço. Tente novamente.");
+        });
+    }
+
+
+    // --- Navegação para Tela 2 ---
 
     // Ir para tela 2 com dados salvos
     function mostrarRotas() {
       if (!localAtual) return alert("Aguardando localização atual...");
-      if (!destinoSelecionado) return alert("Selecione um destino no mapa!");
+      if (!destinoCoords) return alert("Selecione um destino no mapa ou utilize o botão 'Buscar'!");
 
       localStorage.setItem("origem", JSON.stringify(localAtual));
-      localStorage.setItem("destino", JSON.stringify([
-        destinoSelecionado.getLatLng().lat,
-        destinoSelecionado.getLatLng().lng
-      ]));
+      localStorage.setItem("destino", JSON.stringify(destinoCoords));
 
-      window.location.href = "rotas2.html"; // CORRIGIDO: rotas2.html
+      window.location.href = "rotas2.html";
     }
   </script>
 
