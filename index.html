@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telas de Denúncias</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- TELA 1: Denúncias feitas -->
+    <div class="tela ativa" id="tela-denuncias">
+      <header>
+        <span class="voltar" onclick="voltarInicio()">←</span>
+        <h2>Denúncias feitas:</h2>
+      </header>
+
+      <div class="card">
+        <h3>Denúncia 1</h3>
+        <p><strong>Autor da denúncia:</strong> Eduarda</p>
+        <p><strong>Descrição do ocorrido:</strong> Eu fui assaltada ontem à noite e levaram meus documentos e a minha bolsa.</p>
+        <button>Encaminhar denúncia</button>
+      </div>
+
+      <div class="card">
+        <h3>Denúncia 2</h3>
+        <p><strong>Autor da denúncia:</strong> Kaio</p>
+        <p><strong>Descrição do ocorrido:</strong> Eu fui agredido por um cara, eu quebrei a perna e o braço, acabei indo parar no hospital.</p>
+        <button>Encaminhar denúncia</button>
+      </div>
+
+      <button class="nav" onclick="mudarTela('tela-encaminhar')">Ir para Encaminhar</button>
+    </div>
+
+    <!-- TELA 2: Encaminhar denúncias -->
+    <div class="tela" id="tela-encaminhar">
+      <header>
+        <span class="voltar" onclick="mudarTela('tela-denuncias')">←</span>
+        <h2>Encaminhar denúncias</h2>
+      </header>
+
+      <div class="card">
+        <p><strong>Administrador:</strong> Marcos Pereira</p>
+        <p><strong>Órgão Destino:</strong> Secretaria de Segurança</p>
+        <p><strong>Data de encaminhamento:</strong> 15/04/2024</p>
+        <p><strong>Observações:</strong> Denúncia relacionada à segurança pública.</p>
+        <p><strong>Protocolo:</strong> 6732804519</p>
+        <button>Verificar andamento</button>
+      </div>
+
+      <div class="card">
+        <p><strong>Administrador:</strong> ...</p>
+        <p><strong>Órgão Destino:</strong> ...</p>
+        <p><strong>Data de encaminhamento:</strong> 00/00/0000</p>
+        <p><strong>Observações:</strong> ...</p>
+        <p><strong>Protocolo:</strong> ...</p>
+        <button>Registrar encaminhamento</button>
+      </div>
+
+      <button class="nav" onclick="mudarTela('tela-duvidas')">Ir para Dúvidas</button>
+    </div>
+
+    <!-- TELA 3: Dúvidas -->
+    <div class="tela" id="tela-duvidas">
+      <header>
+        <span class="voltar" onclick="mudarTela('tela-encaminhar')">←</span>
+        <h2>Dúvidas</h2>
+      </header>
+
+      <div class="card">
+        <p>Para acessar seus <strong>Contatos de emergência</strong> basta acessar a opção:</p>
+        <div class="opcao">Nova</div>
+      </div>
+
+      <div class="card">
+        <p>Para acessar o <strong>SOS</strong> basta acessar a opção:</p>
+        <div class="opcao">Coração</div>
+      </div>
+
+      <button class="nav" onclick="mudarTela('tela-usuarios')">Ir para Usuários</button>
+    </div>
+
+    <!-- TELA 4: Usuários -->
+    <div class="tela" id="tela-usuarios">
+      <header>
+        <span class="voltar" onclick="mudarTela('tela-duvidas')">←</span>
+        <h2>Usuários registrados</h2>
+      </header>
+
+      <div class="usuarios">
+        <button>Carlos Pereira ➜</button>
+        <button>Ana Costa ➜</button>
+        <button>Ricardo Gomes ➜</button>
+        <button>Kaio Henrique ➜</button>
+      </div>
+
+      <button class="nav" onclick="mudarTela('tela-denuncias')">Voltar ao início</button>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
