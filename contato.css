@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0e1312;
+    height: 100vh;
+  }
+  
+  .tela {
+    width: 320px;
+    background-color: #0e1312;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+  }
+  
+  .tela.ativa {
+    display: flex;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  .lista-contatos {
+    background-color: #fff5f5;
+    border-radius: 12px;
+    color: #000;
+    padding: 15px;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .contato {
+    border-bottom: 1px solid #ccc;
+    padding: 8px 0;
+  }
+  
+  .contato:last-child {
+    border: none;
+  }
+  
+  .contato span {
+    display: block;
+  }
+  
+  .contato button {
+    background: none;
+    border: none;
+    color: #800020;
+    cursor: pointer;
+    font-size: 13px;
+    float: right;
+  }
+  
+  #btnAdicionar {
+    background-color: #800020;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  
+  .icone {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  
+  .avatar {
+    width: 80px;
+    height: 80px;
+    background-color: #444;
+    border-radius: 50%;
+  }
+  
+  form {
+    background-color: #fff5f5;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  form input {
+    border: none;
+    border-bottom: 1px solid #888;
+    background: none;
+    padding: 8px;
+    outline: none;
+  }
+  
+  form button {
+    background-color: #800020;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  
