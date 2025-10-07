@@ -1,218 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rotas Seguras - Finalizado</title>
-    <style>
-        /* Estilos Globais (Fundo Cinza Claro do Mockup) */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f3f3f3;
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chegada Segura</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-        /* Container Principal (A área preta do mockup) */
-        .app-container {
-            width: 100%;
-            max-width: 400px;
-            background-color: #122026;
-            /* Fundo escuro */
-            margin: 0;
-            padding-top: 50px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            overflow-y: auto;
-            padding-bottom: 20px;
-            min-height: calc(100vh - 50px);
-        }
+    .phone {
+      width: 360px;
+      height: 640px;
+      background-color: #0F171C;
+      border-radius: 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      color: white;
+      position: relative;
+    }
 
-        /* Título "finalizado" no topo */
-        .header-text {
-            position: absolute;
-            top: 15px;
-            left: 25px;
-            font-size: 20px;
-            color: #797979;
-            font-weight: bold;
-        }
+    h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      line-height: 1.4;
+    }
 
-        /* Mensagem Principal */
-        .titulo {
-            padding: 40px 20px 20px;
-            font-size: 24px;
-            line-height: 1.3;
-            font-weight: bold;
-            color: white;
-        }
+    .illustration {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 10px 0 20px;
+    }
 
-        /* Imagem e Ícone (Área Visual) */
-        .imagem-area {
-            position: relative;
-            padding: 20px 0 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .illustration .shield {
+      position: absolute;
+      top: 0;
+      left: 80%;
+      transform: translateX(-50%);
+      width: 140px;
+      z-index: 1;
+      margin-top: 20%;
+    }
 
-        /* Estilo para a imagem do Avatar */
-        .avatar-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid #122026;
-            /* Borda da cor do fundo do container */
-            z-index: 2;
-            object-fit: cover;
-            /* Garante que a imagem preencha o círculo */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-        }
+    .illustration .woman {
+      position: absolute;
+      bottom: 0;
+      left: 40%;
+      transform: translateX(-50%);
+      width: 140px;
+      z-index: 2;
+    }
 
-        /* Simulação do Ícone de Segurança (Shield) */
-        .shield {
-            position: absolute;
-            right: 80px;
-            top: 50px;
-            width: 120px;
-            height: 120px;
-            z-index: 1;
-            opacity: 1;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-        }
+    .card {
+      background: #fff;
+      color: #000;
+      border-radius: 12px;
+      padding: 15px;
+      width: 90%;
+      text-align: left;
+      margin-bottom: 20px;
+    }
 
-        /* Ícone de check dentro do shield (Substituído por IMG) */
-        .check-img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-        }
+    .card p {
+      margin: 6px 0;
+      font-size: 14px;
+    }
 
-        /* Container de Detalhes (Branco) */
-        .detalhes {
-            background-color: white;
-            color: black;
-            padding: 20px;
-            margin: 0 20px 20px 20px;
-            border-radius: 15px;
-            text-align: left;
-            width: calc(100% - 40px);
-            box-sizing: border-box;
-        }
+    .btn {
+      background-color: #780C28;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 12px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      width: 90%;
+      transition: background 0.3s;
+    }
 
-        .detalhes-linha {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-        }
-
-        .detalhes-linha:not(:last-of-type) {
-            border-bottom: 1px solid #eee;
-        }
-
-        .detalhes-label {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .detalhes-valor {
-            color: #333;
-            text-align: right;
-        }
-
-        /* Botão Compartilhar */
-        .btn-compartilhar {
-            width: 100%;
-            padding: 12px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 8px;
-            background-color: #780C28;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-    </style>
+    .btn:hover {
+      background-color: #a51c3b;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="phone">
+    <h1>VOCÊ CHEGOU AO SEU<br>DESTINO COM<br>SEGURANÇA!</h1>
 
-
-    <div class="app-container">
-        <div class="titulo">VOCÊ CHEGOU AO SEU DESTINO COM SEGURANÇA!</div>
-
-        <div class="imagem-area">
-
-            <img class="avatar-img" src="transferir (1).png" alt="Avatar do Usuário">
-
-            <div class="shield">
-                <img class="check-img" src="transferir (2).png" alt="Check de Segurança">
-            </div>
-        </div>
-
-        <div class="detalhes">
-            <div class="detalhes-linha">
-                <span class="detalhes-label">Local:</span>
-                <span class="detalhes-valor" id="infoLocal">Casa</span>
-            </div>
-            <div class="detalhes-linha">
-                <span class="detalhes-label">Hora de chegada:</span>
-                <span class="detalhes-valor" id="infoHora">--:--</span>
-            </div>
-            <div class="detalhes-linha">
-                <span class="detalhes-label">Data:</span>
-                <span class="detalhes-valor" id="infoData">--/--/----</span>
-            </div>
-            <div class="detalhes-linha">
-                <span class="detalhes-label">Status:</span>
-                <span class="detalhes-valor" style="font-weight: bold; color: green;">Chegada segura confirmada</span>
-            </div>
-
-            <button class="btn-compartilhar" onclick="compartilharStatus()">Compartilhar</button>
-        </div>
+    <div class="illustration">
+      <img src="img/transferir (2).png" alt="Escudo" class="shield">
+      <img src="img/transferir (1).png" alt="Mulher" class="woman">
     </div>
 
-    <script>
-        // Recupera dados do localStorage, ou usa valores do mockup como fallback
-        // Assumindo que a tela anterior (rotas4.html) salvou esses itens
-        const horaChegada = localStorage.getItem("horaChegada") || hora;
-        const dataChegada = localStorage.getItem("dataChegada") || data;
-        const destinoDisplay = "Casa"; // Mantém o texto do mockup
+    <div class="card">
+      <p><strong>Local:</strong></p>
+      <p><strong>Hora de chegada:</strong> 10:18</p>
+      <p><strong>Data:</strong> 25/08/2025</p>
+      <p><strong>Status:</strong> Chegada segura confirmada</p>
+    </div>
 
-        document.getElementById('infoHora').textContent = horaChegada;
-        document.getElementById('infoData').textContent = dataChegada;
-        document.getElementById('infoLocal').textContent = destinoDisplay;
+    <button class="btn" onclick="compartilhar()">Compartilhar</button>
+  </div>
 
-        // Função de compartilhamento
-        function compartilharStatus() {
-            const mensagem = `Cheguei ao meu destino (${destinoDisplay}) em ${dataChegada} às ${horaChegada} com segurança! Status: Chegada segura confirmada. #RotasSeguras`;
-
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Chegada Segura',
-                    text: mensagem
-                })
-                    .then(() => console.log('Compartilhamento bem-sucedido'))
-                    .catch((error) => console.log('Compartilhamento cancelado ou houve um erro.'));
-            } else {
-                alert("Compartilhe sua conquista! Copie a mensagem:\n\n" + mensagem);
-            }
-        }
-    </script>
-
+  <script>
+    function compartilhar() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Chegada Segura',
+          text: 'Cheguei ao meu destino com segurança!',
+          url: window.location.href
+        }).catch(err => console.log(err));
+      } else {
+        alert("Recurso de compartilhamento não suportado neste navegador.");
+      }
+    }
+  </script>
 </body>
-
 </html>

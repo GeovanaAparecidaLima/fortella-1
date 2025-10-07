@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Painel Admin — Fortella</title>
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <header class="topo">
+    <div class="topo-left"><a class="brand" href="#">Administrador</a></div>
+    <div class="topo-right">Olá, Admin <i class="fa-solid fa-user-circle"></i></div>
+  </header>
+
+  <main class="painel">
+    <nav class="tabs">
+      <button class="tab active" data-tab="locais">Locais Seguros</button>
+      <button class="tab" data-tab="denuncias">Denúncias</button>
+      <button class="tab" data-tab="usuarios">Usuários</button>
+    </nav>
+
+    <!-- LOCAIS -->
+    <section class="tab-panel" id="locais" data-visible>
+      <div class="panel-header">
+        <h1>Gerenciar Locais Seguros</h1>
+        <div class="actions">
+          <button id="atualizarLocais" class="btn light"><i class="fa-solid fa-rotate"></i> Atualizar</button>
+          <button id="abrirModalLocal" class="btn primary"><i class="fa-solid fa-plus"></i> Cadastrar Local</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchLocais" placeholder="Pesquisar por nome ou endereço">
+        </div>
+        <select id="filtroCategoria">
+          <option value="">Categoria</option>
+          <option>Hospital</option>
+          <option>Escola</option>
+          <option>Delegacia</option>
+          <option>Farmácia</option>
+          <option>Casa</option>
+          <option>Trabalho</option>
+        </select>
+        <select id="filtroStatus">
+          <option value="">Status</option>
+          <option>Ativo</option>
+          <option>Inativo</option>
+        </select>
+      </div>
+
+      <div class="tabela-wrap">
+        <table id="tabelaLocais" class="tabela">
+          <thead>
+            <tr><th>Nome</th><th>Endereço</th><th>Categoria</th><th>Status</th><th>Ações</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- DENÚNCIAS -->
+    <section class="tab-panel" id="denuncias">
+      <div class="panel-header">
+        <h1>Gerenciar Denúncias</h1>
+        <div class="actions">
+          <button id="atualizarDenuncias" class="btn light"><i class="fa-solid fa-rotate"></i> Atualizar</button>
+          <button id="abrirModalDenuncia" class="btn primary"><i class="fa-solid fa-plus"></i> Nova Denúncia</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchDenuncias" placeholder="Pesquisar por número ou palavra-chave">
+        </div>
+        <button id="exportarDenuncias" class="btn outline"><i class="fa-solid fa-file-export"></i> Exportar Relatório</button>
+      </div>
+
+      <div class="tabela-wrap">
+        <table id="tabelaDenuncias" class="tabela">
+          <thead>
+            <tr><th>#</th><th>Data/Hora</th><th>Tipo</th><th>Status</th><th>Ações</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="bottom-actions">
+        <button id="btnEncaminharSelecionadas" class="btn dark">Encaminhar</button>
+        <button id="btnAlterarSelecionadas" class="btn light">Alterar</button>
+      </div>
+    </section>
+
+    <!-- USUÁRIOS -->
+    <section class="tab-panel" id="usuarios">
+      <div class="panel-header">
+        <h1>Gerenciar Usuários</h1>
+        <div class="actions">
+          <button id="abrirModalUsuario" class="btn primary"><i class="fa-solid fa-plus"></i> Novo Usuário</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="searchUsuarios" placeholder="Pesquisar por nome ou e-mail">
+        </div>
+        <select id="filtroPapel">
+          <option value="">Papel</option>
+          <option>Admin</option>
+          <option>Moderador</option>
+          <option>Usuário</option>
+        </select>
+      </div>
+
+      <div class="tabela-wrap">
+        <table id="tabelaUsuarios" class="tabela">
+          <thead>
+            <tr><th>Nome</th><th>E-mail</th><th>Papel</th><th>Status</th><th>Ações</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL GENERICO -->
+  <div id="modal" class="modal hidden" role="dialog" aria-hidden="true">
+    <div class="modal-card">
+      <header class="modal-header">
+        <h2 id="modalTitle">Título</h2>
+        <button id="modalClose" class="btn icon"><i class="fa-solid fa-xmark"></i></button>
+      </header>
+      <div id="modalBody" class="modal-body"></div>
+      <footer class="modal-footer" id="modalFooter"></footer>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
