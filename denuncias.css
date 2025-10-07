@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+   }
+   h2 {
+    margin-bottom: 20px;
+   }
+   .tela {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+   }
+   textarea {
+    width: 80%;
+    height: 120px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+   }
+   button {
+    background-color: #800020; /* vinho */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+   }
+   button:hover {
+    opacity: 0.9;
+   }
+   .checkmark {
+    font-size: 100px;
+    color: #2ecc71; /* verde */
+    margin-bottom: 20px;
+   }
+   .card {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 12px;
+    width: 80%;
+    text-align: left;
+   }
