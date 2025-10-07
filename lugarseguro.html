@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lugares Seguros</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: #0F171C;
+            color: #fff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        header {
+            background: #0F171C;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            color: #fff;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .user-icon {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 1.4rem;
+        }
+
+        .subtitle {
+            background: #527D6F;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin: 10px;
+        }
+
+        .list {
+            flex: 1;
+            overflow-y: auto;
+            width: 90%;
+            margin-bottom: 1rem;
+        }
+
+        .place {
+            background: #EAEAEA;
+            color: #0F171C;
+            padding: 1rem;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .place:hover {
+            transform: scale(1.02);
+        }
+
+        .place h3 {
+            color: #780C28;
+            margin-bottom: 5px;
+        }
+
+        .btn-principal {
+            background: #780C28;
+            color: white;
+            border: none;
+            padding: 1rem;
+            width: 90%;
+            font-size: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h2>Lugares Seguros</h2>
+            <div class="user-icon">👤</div>
+        </header>
+
+        <p class="subtitle">Lugares próximos à sua localização</p>
+
+        <div class="list">
+            <div class="place" data-lat="-23.25821" data-lon="-51.14583">
+                <h3>Lugar 1</h3>
+                <p><strong>Pronto atendimento Maria Cecília</strong></p>
+                <p>Av. Saul Elkind, 892 - Vivi Xavier, Londrina – PR</p>
+            </div>
+
+            <div class="place" data-lat="-23.25798" data-lon="-51.15459">
+                <h3>Lugar 2</h3>
+                <p><strong>Polícia Militar</strong></p>
+                <p>Av. Saul Elkind, 1725 - Jacutinga, Londrina - PR</p>
+            </div>
+
+            <div class="place" data-lat="-23.25759" data-lon="-51.15363">
+                <h3>Lugar 3</h3>
+                <p><strong>Farmácias Nissei</strong></p>
+                <p>Av. Saul Elkind, 1630 - Conjunto Habitacional, Londrina - PR</p>
+            </div>
+        </div>
+
+        <button id="localMaisSeguro" class="btn-principal">Local mais seguro ➜</button>
+    </div>
+
+    <script>
+        // Ao clicar em um lugar, salvar destino e abrir a tela de rota
+        document.querySelectorAll('.place').forEach(place => {
+            place.addEventListener('click', () => {
+                const lat = place.dataset.lat;
+                const lon = place.dataset.lon;
+                const name = place.querySelector('strong').textContent;
+                localStorage.setItem('destino', JSON.stringify({ lat, lon, name }));
+                window.location.href = "rotasegura.html";
+            });
+        });
+
+        // Botão "Local mais seguro" (pega o primeiro da lista)
+        document.getElementById('localMaisSeguro').addEventListener('click', () => {
+            const primeiroLugar = document.querySelector('.place');
+            const lat = primeiroLugar.dataset.lat;
+            const lon = primeiroLugar.dataset.lon;
+            const name = primeiroLugar.querySelector('strong').textContent;
+            localStorage.setItem('destino', JSON.stringify({ lat, lon, name }));
+            window.location.href = "rotasegura.html";
+        });
+    </script>
+</body>
+
+</html>
