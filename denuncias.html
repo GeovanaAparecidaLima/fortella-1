@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Denúncia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="tela" id="tela1">
+        <header>
+            <h2>Denúncia</h2>
+        </header>
+        <textarea id="descricao" placeholder="Descrição do Ocorrido"></textarea>
+        <button onclick="enviarDenuncia()">Enviar Denúncia</button>
+    </div>
+    <div class="tela" id="tela2" style="display:none;">
+        <header>
+            <button class="voltar" onclick="voltar(1)">←</button>
+            <h2>Denúncia</h2>
+        </header>
+        <div class="checkmark">✔</div>
+        <h2>Denúncia concluída</h2>
+        <button onclick="mostrarInformacoes()">Informações</button>
+    </div>
+    <div class="tela" id="tela3" style="display:none;">
+        <header>
+            <button class="voltar" onclick="voltar(2)">←</button>
+            <h2>Encaminhamento de Denúncias</h2>
+        </header>
+        <div class="card">
+            <p><strong>Administrador:</strong> Marcos Pereira</p>
+            <p><strong>Órgão Destino:</strong> Secretaria de Segurança</p>
+            <p><strong>Data de encaminhamento:</strong> 15/04/2024</p>
+            <p><strong>Observações:</strong> Denúncia relacionada à segurança pública.</p>
+            <p><strong>Protocolo:</strong> 6732804519</p>
+        </div>
+        <br>
+        <button onclick="novaDenuncia()">Nova Denúncia</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
