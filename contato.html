@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contatos de Emergência</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Tela de lista de contatos -->
+  <div id="tela-lista" class="tela ativa">
+    <h2>Contatos de Emergência</h2>
+    <div class="lista-contatos" id="listaContatos">
+      <!-- Contatos aparecerão aqui -->
+    </div>
+    <button id="btnAdicionar">Adicionar Contato</button>
+  </div>
+
+  <!-- Tela de novo contato -->
+  <div id="tela-novo" class="tela">
+    <h2>Novo Contato</h2>
+    <div class="icone">
+      <div class="avatar"></div>
+    </div>
+    <form id="formContato">
+      <input type="text" id="nome" placeholder="Nome" required>
+      <input type="text" id="sobrenome" placeholder="Sobrenome">
+      <input type="tel" id="telefone" placeholder="Telefone">
+      <input type="tel" id="celular" placeholder="Celular">
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
