@@ -133,121 +133,321 @@
   }
   
 /* Chatbot */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
 body {
-  background-color: #eaeaea;
+  font-family: Arial, sans-serif;
+  background-color: #eee4e4;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0;
 }
 
 .chat-container {
-  background-color: #fff;
   width: 360px;
-  height: 680px;
-  border: 2px solid #007bff;
+  height: 640px;
+  background-color: #fff;
+  border: 3px solid #0099ff;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .chat-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  color: #555;
   padding: 15px 0;
-  border-bottom: 1px solid #ccc;
-  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
 }
 
-.chat-header .dot {
-  font-size: 22px;
-  margin-right: 8px;
-}
-
-.chat-header h1 {
-  font-size: 22px;
-  font-weight: 600;
-  color: #111;
-}
-
-.chat-box {
+.chat-messages {
   flex: 1;
-  background-color: #f9f9f9;
   padding: 15px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow-y: auto;
+  background-color: #fafafa;
+  scroll-behavior: smooth;
 }
 
-/* Mensagens */
+/* Balões de mensagem */
 .message {
-  max-width: 75%;
+  max-width: 80%;
   padding: 10px 14px;
-  border-radius: 16px;
+  border-radius: 18px;
+  line-height: 1.4;
+  font-size: 14px;
   position: relative;
   display: inline-block;
-  line-height: 1.4;
-  word-wrap: break-word;
+  animation: fadeIn 0.3s ease;
 }
 
-.message.user {
-  align-self: flex-end;
+.user {
   background-color: #d9d9d9;
-  border-bottom-right-radius: 4px;
+  align-self: flex-end;
 }
 
-.message.bot {
-  align-self: flex-start;
-  background-color: #eeeeee;
-  border-bottom-left-radius: 4px;
-}
-
-.message .time {
-  display: block;
-  font-size: 11px;
-  text-align: right;
-  color: #555;
-  margin-top: 4px;
-}
-
-/* Área de entrada */
-.chat-input-area {
-  display: flex;
-  align-items: center;
-  padding: 10px;
+.bot {
   background-color: #f0f0f0;
-  border-top: 1px solid #ccc;
+  border: 1px solid #ccc;
+  align-self: flex-start;
 }
 
-.chat-input-area input {
+.timestamp {
+  font-size: 10px;
+  color: #666;
+  margin-top: 3px;
+  text-align: right;
+}
+
+/* Caixa de digitação */
+.chat-input {
+  background-color: #e6e6e6;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  gap: 6px;
+  border-top: 1px solid #ccc;
+  position: sticky;
+  bottom: 0;
+}
+
+.chat-input input {
   flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 10px 14px;
   border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 15px;
   outline: none;
 }
 
-.chat-input-area button {
-  margin-left: 8px;
-  padding: 8px 15px;
-  background-color: #007bff;
-  color: #fff;
+.chat-input button {
+  background-color: #0099ff;
+  color: white;
   border: none;
+  padding: 10px 16px;
   border-radius: 20px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
-.chat-input-area button:hover {
-  background-color: #005ecb;
+.chat-input button:hover {
+  background-color: #007acc;
+}
+
+/* Scrollbar minimalista */
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.body1{
+  background-color: #0f161b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.body2{
+  background-color: #0f161b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 400px) {
+  .chat-container {
+    width: 100%;
+    height: 100vh;
+    border: none;
+    border-radius: 0;
+  }
+}
+
+/*tela nova */
+/* Estilos Gerais e Cores Modernas */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Cores Suavizadas */
+    --color-bg-light: #e8f3f0;      /* Fundo Principal (Menta muito claro, quase branco) */
+    --color-bg-mid: #d2e4df;        /* Fundo da Grade (Cinza Menta Claro) */
+    --color-bg-dark: #6a958e;       /* Fundo do Header/Destaque (Verde Musgo Suave) */
+    --color-text-dark: #3c4f4a;     /* Texto/Ícones Escuros (Tom de grafite suave) */
+    --color-white: #ffffff;
+    
+    /* Sombras SUTIS e MODERNAS */
+    --shadow-soft: 0 4px 8px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+    --shadow-deep: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    background-color: var(--color-bg-light);
+    /* Fonte mais limpa, como 'Inter' ou similar, se estiver disponível */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px; 
+    background-color: var(--color-bg-mid); /* Fundo da área de conteúdo principal */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); /* Sombra para simular tela de celular */
+}
+
+/* --- Cabeçalho (Header) --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--color-bg-dark);
+}
+
+.header-icon i {
+    font-size: 1.5em;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+/* --- Seção de Destaque Diário --- */
+.daily-highlight {
+    background-color: var(--color-bg-dark);
+    display: flex;
+    margin: 0 10px;
+    padding: 15px;
+    border-radius: 0 0 12px 12px; /* Cantos arredondados suavemente */
+    position: relative;
+    overflow: hidden; 
+    height: 170px; 
+    margin-bottom: 10px; 
+}
+
+.highlight-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding-right: 15px;
+}
+
+.highlight-info p {
+    color: var(--color-text-dark);
+    font-size: 1.1em;
+    font-weight: 500; 
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.highlight-placeholder {
+    background-color: rgba(0, 0, 0, 0.1); /* Fundo sutil */
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.highlight-image {
+    width: 100px; 
+    height: 120px;
+    position: absolute;
+    right: 20px; 
+    top: 50%;
+    transform: translateY(-50%) rotate(5deg); 
+    box-shadow: var(--shadow-deep); /* Sombra mais destacada no elemento flutuante */
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--color-white);
+}
+
+/* --- Barra da Categoria (Nova) --- */
+.category-bar {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 12px; /* Aumenta a curva */
+    margin-bottom: 20px; /* Mais espaço para respirar */
+    box-shadow: var(--shadow-soft);
+}
+
+.category-title {
+    font-size: 1.1em;
+    font-weight: 600; /* Texto mais pesado para destaque */
+    flex-grow: 1; 
+}
+
+.category-back-icon {
+    font-size: 1.2em;
+    cursor: pointer;
+    transform: rotate(180deg); 
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.category-back-icon:hover {
+    opacity: 1;
+}
+
+/* --- Galeria de Imagens (Grid) --- */
+.image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px; 
+    padding: 0 15px 20px; /* Mais padding nas laterais e inferior */
+}
+
+.grid-item {
+    background-color: var(--color-white);
+    border-radius: 12px; /* Aumenta o arredondamento */
+    overflow: hidden;
+    box-shadow: var(--shadow-soft); /* Sombra suave */
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.grid-item:active {
+    /* Efeito de clique moderno (diminuir a profundidade) */
+    transform: scale(0.97); 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: grayscale(100%);
+    opacity: 0.95; /* Suaviza a imagem */
 }

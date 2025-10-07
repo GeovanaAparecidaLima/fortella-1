@@ -383,3 +383,73 @@ function botReply(userText) {
 
   addMessage(response, "bot");
 }
+
+/*Chatbot */
+const chat = document.getElementById("chat");
+const userinput = document.getElementById("userInput");
+const sendbtn = document.getElementById("sendBtn");
+
+function sendMessage() {
+  const message = userInput.value.trim();
+  if (message === "") return;
+
+  // Cria a mensagem do usuário
+  const userMsg = document.createElement("div");
+  userMsg.classList.add("message", "user");
+  userMsg.innerHTML = `${message}<div class="timestamp">${getTime()}</div>`;
+  chat.appendChild(userMsg);
+  userInput.value = "";
+
+  chat.scrollTop = chat.scrollHeight;
+
+  // Resposta automática
+  setTimeout(() => {
+    const botMsg = document.createElement("div");
+    botMsg.classList.add("message", "bot");
+    botMsg.innerHTML = `${getBotResponse(message)}<div class="timestamp">${getTime()}</div>`;
+    chat.appendChild(botMsg);
+    chat.scrollTop = chat.scrollHeight;
+  }, 1000);
+}
+
+function getTime() {
+  const now = new Date();
+  return now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
+function getBotResponse(message) {
+  const lower = message.toLowerCase();
+  if (lower.includes("ajuda")) return "Claro, estou aqui para te ajudar. O que aconteceu?";
+  if (lower.includes("roub")) return "Sinto muito por isso. Procure um local seguro e entre em contato com a polícia imediatamente.";
+  if (lower.includes("oi")) return "Olá! 😊 Como posso te ajudar hoje?";
+  return "Entendi. Pode me explicar melhor?";
+}
+
+// Eventos
+sendBtn.addEventListener("click", sendMessage);
+userInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+
+/*tela nova*/
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Lógica para o ícone de voltar da categoria
+    const backIcon = document.querySelector('.category-back-icon');
+    backIcon.addEventListener('click', () => {
+        console.log('Ícone de Voltar da Categoria clicado.');
+        alert('Voltando para a tela de Início/Categorias...');
+        // Exemplo de navegação real: window.location.href = 'index.html';
+    });
+
+    // 2. Lógica de clique nas imagens da galeria
+    const gridItems = document.querySelectorAll('.grid-item');
+    gridItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            const altText = item.querySelector('img').alt;
+            
+            // Simula a abertura da imagem para colorir
+            console.log(`Você clicou no desenho: ${altText} (Índice ${index + 1}).`);
+            alert(`Abrindo a página de colorir para o ${altText}...`);
+        });
+    });
+});
