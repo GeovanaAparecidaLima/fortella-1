@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortella</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #E5E5E5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 220px;
+            height: 480px;
+            background-color: #0F171C;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .text-login {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            color: #B0B0B0;
+            font-size: 10px;
+            opacity: 0.7;
+        }
+
+        .logo-img {
+            width: 90px;
+            /* ajuste o tamanho conforme sua imagem */
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .logo-text {
+            color: #EAEAEA;
+            font-size: 16px;
+            letter-spacing: 2px;
+            font-family: "Julius Sans One", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="text-login">login</div>
+        <div class="logo-text">FORTELLA</div>
+        <br>
+        <img src="logo.png" alt="Logo Fortella" class="logo-img">
+    </div>
+
+    <script>
+        // Exemplo: redirecionar após 3 segundos para a próxima tela
+        setTimeout(() => {
+            window.location.href = "tela_inicio.html";
+        }, 3000);
+    </script>
+
+</body>
+
+</html>
