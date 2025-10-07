@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local MAIS seguro</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: #0F171C;
+            color: #fff;
+        }
+
+        .container-map {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            align-items: center;
+        }
+
+        header {
+            background: #0F171C;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .btn-voltar {
+            position: absolute;
+            left: 15px;
+            top: 10px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        #map {
+            flex: 1;
+            width: 100%;
+            height: 80%;
+        }
+
+        .btn-principal {
+            background: #780C28;
+            color: white;
+            border: none;
+            padding: 1rem;
+            width: 90%;
+            font-size: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .popup-label {
+            background: white;
+            color: #0F171C;
+            font-weight: bold;
+            padding: 6px 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-map">
+        <header>
+            <button class="btn-voltar" onclick="window.location.href='lugarseguro.html'">←</button>
+            <h2>Local MAIS seguro</h2>
+        </header>
+
+        <div id="map"></div>
+
+        <button id="compartilhar" class="btn-principal">Compartilhar localização</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        const destino = JSON.parse(localStorage.getItem('destino'));
+        if (!destino) {
+            alert("Nenhum destino selecionado!");
+            window.location.href = "lugarseguro.html";
+        }
+
+        const map = L.map('map').setView([-23.304, -51.17], 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Obter localização atual do usuário
+        navigator.geolocation.getCurrentPosition(pos => {
+            const origem = [pos.coords.latitude, pos.coords.longitude];
+            const destinoLatLng = [destino.lat, destino.lon];
+
+            L.marker(origem).addTo(map).bindPopup("Você está aqui").openPopup();
+            const marcadorDestino = L.marker(destinoLatLng).addTo(map)
+                .bindPopup(`<div class="popup-label">Local seguro!</div>`);
+
+            // Montar rota via OSRM
+            const url = `https://router.project-osrm.org/route/v1/driving/${origem[1]},${origem[0]};${destino.lon},${destino.lat}?overview=full&geometries=geojson`;
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    const route = data.routes[0].geometry;
+                    const line = L.geoJSON(route, { color: "#527D6F", weight: 5 }).addTo(map);
+                    map.fitBounds(line.getBounds());
+                    marcadorDestino.openPopup();
+                })
+                .catch(() => alert("Erro ao calcular a rota."));
+        }, () => {
+            alert("Não foi possível obter sua localização.");
+        });
+
+        // Compartilhar localização
+        document.getElementById('compartilhar').addEventListener('click', () => {
+            navigator.share ? navigator.share({
+                title: "Minha localização segura",
+                text: "Estou indo para " + destino.name,
+                url: window.location.href
+            }) : alert("Compartilhamento não suportado neste dispositivo.");
+        });
+    </script>
+</body>
+
+</html>
