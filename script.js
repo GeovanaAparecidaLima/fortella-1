@@ -385,51 +385,85 @@ function botReply(userText) {
 }
 
 /*Chatbot */
-const chat = document.getElementById("chat");
+const chatbox = document.getElementById("chat-box");
 const userinput = document.getElementById("userInput");
 const sendbtn = document.getElementById("sendBtn");
-
-function sendMessage() {
-  const message = userInput.value.trim();
-  if (message === "") return;
-
-  // Cria a mensagem do usuário
-  const userMsg = document.createElement("div");
-  userMsg.classList.add("message", "user");
-  userMsg.innerHTML = `${message}<div class="timestamp">${getTime()}</div>`;
-  chat.appendChild(userMsg);
-  userInput.value = "";
-
-  chat.scrollTop = chat.scrollHeight;
-
-  // Resposta automática
-  setTimeout(() => {
-    const botMsg = document.createElement("div");
-    botMsg.classList.add("message", "bot");
-    botMsg.innerHTML = `${getBotResponse(message)}<div class="timestamp">${getTime()}</div>`;
-    chat.appendChild(botMsg);
-    chat.scrollTop = chat.scrollHeight;
-  }, 1000);
-}
+const sendSound = document.getElementById("sendSound");
+const receiveSound = document.getElementById("receiveSound");
+const statusText = document.getElementById("status");
 
 function getTime() {
   const now = new Date();
   return now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
-function getBotResponse(message) {
-  const lower = message.toLowerCase();
-  if (lower.includes("ajuda")) return "Claro, estou aqui para te ajudar. O que aconteceu?";
-  if (lower.includes("roub")) return "Sinto muito por isso. Procure um local seguro e entre em contato com a polícia imediatamente.";
-  if (lower.includes("oi")) return "Olá! 😊 Como posso te ajudar hoje?";
-  return "Entendi. Pode me explicar melhor?";
+function addMessage(text, sender) {
+  const msg = document.createElement("div");
+  msg.classList.add("message", sender);
+
+  const bubble = document.createElement("div");
+  bubble.classList.add("bubble");
+  bubble.innerHTML = `<p>${text}</p><span class="time">${getTime()}</span>`;
+  msg.appendChild(bubble);
+
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  if (sender === "bot") receiveSound.play();
+  else sendSound.play();
 }
 
-// Eventos
-sendBtn.addEventListener("click", sendMessage);
-userInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") sendMessage();
+// Enviar mensagem
+sendBtn.addEventListener("click", () => {
+  const text = userInput.value.trim();
+  if (text === "") return;
+
+  addMessage(text, "user");
+  userInput.value = "";
+
+  showTyping();
+  setTimeout(() => botReply(text), 2000);
 });
+
+userInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendBtn.click();
+});
+
+// “Digitando...” animação
+function showTyping() {
+  const typingDiv = document.createElement("div");
+  typingDiv.classList.add("typing");
+  typingDiv.innerHTML = `<div class="dot"></div><div class="dot"></div><div class="dot"></div>`;
+  chatBox.appendChild(typingDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return typingDiv;
+}
+
+// Lógica do chatbot
+function botReply(userText) {
+  document.querySelector(".typing")?.remove();
+  statusText.innerText = "Digitando...";
+
+  let response = "Desculpe, não entendi. Pode explicar melhor?";
+  userText = userText.toLowerCase();
+
+  if (userText.includes("ajuda")) {
+    response = "Claro! Você pode me contar o que aconteceu?";
+  } else if (userText.includes("roub")) {
+    response = "Sinto muito 😢. Deseja que eu envie um alerta para seus contatos de emergência?";
+  } else if (userText.includes("sim")) {
+    response = "🚨 Alerta enviado! Mantenha-se em local seguro até a ajuda chegar.";
+  } else if (userText.includes("não")) {
+    response = "Tudo bem, estou aqui se precisar de algo mais.";
+  } else if (userText.includes("obrigad")) {
+    response = "De nada 💛. Estarei sempre aqui para ajudar!";
+  }
+
+  setTimeout(() => {
+    addMessage(response, "bot");
+    statusText.innerText = "Online";
+  }, 1500);
+}
 
 /*tela nova*/
 document.addEventListener('DOMContentLoaded', () => {
