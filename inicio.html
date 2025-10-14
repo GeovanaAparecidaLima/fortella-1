@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Início - Fortella</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Judson';
+    }
+
+    body {
+      background-color: #E5E5E5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 250px;
+      height: 500px;
+      background-color: #527D6F;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    .header {
+      background-color: #527D6F;
+      color: #0F171C;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      font-weight: bold;
+    }
+
+    .header img {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    /* SEÇÃO IMAGEM */
+    .daily {
+      background-color: #40685C;
+      margin: 20px;
+      height: 60px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      color: #fff;
+      position: relative;
+    }
+
+    .daily span {
+      font-size: 0.9rem;
+      color: #EAEAEA;
+      font-weight: bold;
+    }
+
+    .daily img {
+      width: 60px;
+      height: 60px;
+      border-radius: 4px;
+      object-fit: cover;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* GRID DE BOTÕES */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 20px;
+      background-color: white;
+      flex-grow: 1;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .grid button {
+      background-color: #527d6f;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 1rem;
+      padding: 25px 0;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .grid button:hover {
+      background-color: #406558;
+      transform: scale(1.05);
+    }
+
+    .menu-btn {
+      position: absolute;
+      top: 119px;
+      right: 20px;
+      background: #40685C;
+      color: white;
+      border: none;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <!-- topo -->
+    <div class="header">
+      <img src="iconinicio.png" alt="Ícone Início">
+      <h4>Início</h4>
+      <img src="iconpessoal.png" alt="Ícone info">
+    </div>
+
+    <div class="daily">
+      <span>Imagem diária</span>
+      <img src="imgdiaria.png" alt="Imagem diária">
+    </div>
+
+    <button class="menu-btn" onclick="abrirInicio()">☰</button>
+
+    <section class="grid">
+      <button onclick="abrirPagina('nova.html')">Nova</button>
+      <button onclick="abrirPagina('flores.html')">Flores</button>
+      <button onclick="abrirPagina('marinho.html')">Marinho</button>
+      <button onclick="abrirPagina('animais.html')">Animais</button>
+      <button onclick="abrirPagina('popular.html')">Popular</button>
+      <button onclick="abrirPagina('coracao.html')">Coração</button>
+    </section>
+  </div>
+
+  <script>
+    function abrirPagina(pagina) {
+      window.location.href = pagina;
+    }
+
+    function abrirInicio() {
+      alert('Menu em construção!');
+    }
+  </script>
+</body>
+
+</html>
