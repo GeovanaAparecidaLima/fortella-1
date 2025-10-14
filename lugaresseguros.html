@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Configurações</title>
+  <link rel="stylesheet" href="lugares.css">
+</head>
+<body>
+  <!-- Tela de Configurações -->
+  <div class="tela" id="tela-config">
+    <header>
+      <h2>⚙️ Configurações</h2>
+    </header>
+    <ul class="menu">
+      <li onclick="abrirTela('tela-dados')">Dados Pessoais</li>
+      <li onclick="abrirTela('tela-notificacoes')">Ajustes de Notificações</li>
+      <li onclick="abrirTela('tela-seguranca')">Preferência de segurança</li>
+      <li onclick="abrirTela('tela-idioma')">Idioma</li>
+      <li onclick="abrirTela('tela-sair')">Sair da conta</li>
+    </ul>
+  </div>
+
+  <!-- Tela de Dados Pessoais -->
+  <div class="tela escondido" id="tela-dados">
+    <header>
+      <button onclick="abrirTela('tela-config')">⬅</button>
+      <h2>👤 Dados Pessoais</h2>
+    </header>
+    <form>
+      <input type="text" placeholder="Nome">
+      <input type="email" placeholder="E-mail">
+      <input type="tel" placeholder="Telefone">
+      <input type="text" placeholder="Moradia">
+      <button type="button">Confirmar Dados</button>
+    </form>
+  </div>
+
+  <!-- Tela de Notificações -->
+  <div class="tela escondido" id="tela-notificacoes">
+    <header>
+      <button onclick="abrirTela('tela-config')">⬅</button>
+      <h2>🔔 Ajustes e notificações</h2>
+    </header>
+    <div class="card">⚠️ Alerta de Segurança</div>
+    <div class="card">📞 Chamada de Emergência</div>
+    <div class="card">📍 Localização Compartilhada</div>
+    <div class="card">⏰ Lembrete</div>
+  </div>
+
+  <!-- Tela de Segurança -->
+  <div class="tela escondido" id="tela-seguranca">
+    <header>
+      <button onclick="abrirTela('tela-config')">⬅</button>
+      <h2>🔒 Preferência de segurança</h2>
+    </header>
+    <div class="switch">
+      Compartilhar Localização <input type="checkbox">
+    </div>
+    <div class="switch">
+      Alerta de risco <input type="checkbox" checked>
+    </div>
+    <div class="switch">
+      Chamada de Emergência <input type="checkbox">
+    </div>
+    <div class="switch">
+      Alarme Sonoro <input type="checkbox">
+    </div>
+  </div>
+
+  <!-- Tela de Idiomas -->
+  <div class="tela escondido" id="tela-idioma">
+    <header>
+      <button onclick="abrirTela('tela-config')">⬅</button>
+      <h2>🌍 Idioma</h2>
+    </header>
+    <ul class="menu">
+      <li>Português</li>
+      <li>English</li>
+      <li>Español</li>
+      <li>Italiano</li>
+      <li>Polski</li>
+      <li>日本語</li>
+    </ul>
+  </div>
+
+  <!-- Tela de Sair da Conta -->
+  <div class="tela escondido" id="tela-sair">
+    <header>
+      <button onclick="abrirTela('tela-config')">⬅</button>
+      <h2>👤 Sair da conta</h2>
+    </header>
+    <div class="popup">
+      <p>Sair do Fortella?</p>
+      <div class="botoes">
+        <button class="btn-cancelar" onclick="abrirTela('tela-config')">Cancelar</button>
+        <button class="btn-sair">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="seguros.js"></script>
+</body>
+</html>
