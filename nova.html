@@ -96,6 +96,12 @@
 
     .title-section h4 {
       font-size: 16px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .title-section h4:hover {
+      color: #EAEAEA;
     }
 
     .title-section button {
@@ -151,15 +157,16 @@
 
     <!-- título da seção -->
     <div class="title-section">
-      <h4>Nova</h4>
+      <!-- 🔹 Agora este "Nova" leva para contatos.html -->
+      <h4 onclick="abrirContatos()">Nova</h4>
       <button onclick="abrirInicio()">←</button>
     </div>
 
     <!-- galeria -->
     <div class="gallery">
-      <img src="baldeFlor.png" alt="Desenho 1" onclick="abrirDesenho('desenho1.jpg')">
-      <img src="doisPeixes.png" alt="Desenho 2" onclick="abrirDesenho('.png')">
-      <img src="fundoMar.png" alt="Desenho 3" onclick="abrirDesenho('.png')">
+      <img src="baldeFlor.png" alt="Desenho 1" onclick="abrirDesenho('baldeFlor.png')">
+      <img src="doisPeixes.png" alt="Desenho 2" onclick="abrirDesenho('doisPeixes.png')">
+      <img src="fundoMar.png" alt="Desenho 3" onclick="abrirDesenho('fundoMar.png')">
       <img src="coração.png" alt="Desenho 4" onclick="abrirDesenho('coracao.png')">
       <img src="camaleao.png" alt="Desenho 5" onclick="abrirDesenho('camaleao.png')">
       <img src="polvo.png" alt="Desenho 6" onclick="abrirDesenho('polvo.png')">
@@ -173,6 +180,10 @@
 
     function abrirPerfil() {
       window.location.href = "perfil.html";
+    }
+
+    function abrirContatos() {
+      window.location.href = "contato.html";
     }
 
     function abrirDesenho(img) {
