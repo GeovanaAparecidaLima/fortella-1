@@ -339,166 +339,131 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/*tela nova */
-/* Estilos Gerais e Cores Modernas */
+/*tela coração */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-:root {
-    /* Cores Suavizadas */
-    --color-bg-light: #e8f3f0;      /* Fundo Principal (Menta muito claro, quase branco) */
-    --color-bg-mid: #d2e4df;        /* Fundo da Grade (Cinza Menta Claro) */
-    --color-bg-dark: #6a958e;       /* Fundo do Header/Destaque (Verde Musgo Suave) */
-    --color-text-dark: #3c4f4a;     /* Texto/Ícones Escuros (Tom de grafite suave) */
-    --color-white: #ffffff;
-    
-    /* Sombras SUTIS e MODERNAS */
-    --shadow-soft: 0 4px 8px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
-    --shadow-deep: 0 6px 12px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-    background-color: var(--color-bg-light);
-    /* Fonte mais limpa, como 'Inter' ou similar, se estiver disponível */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
+  background-color: #dfe5e1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
-.container {
-    width: 100%;
-    max-width: 450px; 
-    background-color: var(--color-bg-mid); /* Fundo da área de conteúdo principal */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); /* Sombra para simular tela de celular */
+header {
+  width: 100%;
+  background-color: #79a89b;
+  color: #1f1f1f;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-/* --- Cabeçalho (Header) --- */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: var(--color-bg-dark);
+header h1 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-left: 8px;
 }
 
-.header-icon i {
-    font-size: 1.5em;
-    color: var(--color-text-dark);
-    cursor: pointer;
-    transition: color 0.2s;
+.nav-left, .nav-right {
+  display: flex;
+  align-items: center;
 }
 
-/* --- Seção de Destaque Diário --- */
-.daily-highlight {
-    background-color: var(--color-bg-dark);
-    display: flex;
-    margin: 0 10px;
-    padding: 15px;
-    border-radius: 0 0 12px 12px; /* Cantos arredondados suavemente */
-    position: relative;
-    overflow: hidden; 
-    height: 170px; 
-    margin-bottom: 10px; 
+.nav-left i, .nav-right i {
+  font-size: 1.4rem;
+  cursor: pointer;
 }
 
-.highlight-info {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    padding-right: 15px;
+main {
+  width: 90%;
+  max-width: 500px;
+  background-color: #8bb9aa;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.highlight-info p {
-    color: var(--color-text-dark);
-    font-size: 1.1em;
-    font-weight: 500; 
-    margin-bottom: 10px;
-    opacity: 0.9;
+.daily-image {
+  background-color: #5a8f81;
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
 }
 
-.highlight-placeholder {
-    background-color: rgba(0, 0, 0, 0.1); /* Fundo sutil */
-    width: 150px;
-    height: 40px;
-    border-radius: 5px;
+.daily-image h2 {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
 }
 
-.highlight-image {
-    width: 100px; 
-    height: 120px;
-    position: absolute;
-    right: 20px; 
-    top: 50%;
-    transform: translateY(-50%) rotate(5deg); 
-    box-shadow: var(--shadow-deep); /* Sombra mais destacada no elemento flutuante */
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: var(--color-white);
+.daily-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
-/* --- Barra da Categoria (Nova) --- */
-.category-bar {
-    background-color: var(--color-bg-dark);
-    color: var(--color-text-dark);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    margin: 0 10px;
-    border-radius: 12px; /* Aumenta a curva */
-    margin-bottom: 20px; /* Mais espaço para respirar */
-    box-shadow: var(--shadow-soft);
+.daily-card img {
+  width: 120px;
+  transform: rotate(8deg);
+  border-radius: 6px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
-.category-title {
-    font-size: 1.1em;
-    font-weight: 600; /* Texto mais pesado para destaque */
-    flex-grow: 1; 
+.gallery {
+  margin-top: 12px;
 }
 
-.category-back-icon {
-    font-size: 1.2em;
-    cursor: pointer;
-    transform: rotate(180deg); 
-    opacity: 0.8;
-    transition: opacity 0.2s;
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5a8f81;
+  color: white;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.95rem;
 }
 
-.category-back-icon:hover {
-    opacity: 1;
-}
-
-/* --- Galeria de Imagens (Grid) --- */
 .image-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px; 
-    padding: 0 15px 20px; /* Mais padding nas laterais e inferior */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.grid-item {
-    background-color: var(--color-white);
-    border-radius: 12px; /* Aumenta o arredondamento */
-    overflow: hidden;
-    box-shadow: var(--shadow-soft); /* Sombra suave */
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+.image-grid img {
+  width: 100%;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
-.grid-item:active {
-    /* Efeito de clique moderno (diminuir a profundidade) */
-    transform: scale(0.97); 
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+.image-grid img:hover {
+  transform: scale(1.05);
 }
 
-.grid-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: grayscale(100%);
-    opacity: 0.95; /* Suaviza a imagem */
+/* Responsividade */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.1rem;
+  }
+
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .daily-card img {
+    width: 100px;
+  }
 }

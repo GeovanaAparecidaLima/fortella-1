@@ -465,25 +465,11 @@ function botReply(userText) {
   }, 1500);
 }
 
-/*tela nova*/
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Lógica para o ícone de voltar da categoria
-    const backIcon = document.querySelector('.category-back-icon');
-    backIcon.addEventListener('click', () => {
-        console.log('Ícone de Voltar da Categoria clicado.');
-        alert('Voltando para a tela de Início/Categorias...');
-        // Exemplo de navegação real: window.location.href = 'index.html';
-    });
+/*tela coração*/
+document.addEventListener("DOMContentLoaded", () => {
+  const backButton = document.querySelector(".gallery-header i");
 
-    // 2. Lógica de clique nas imagens da galeria
-    const gridItems = document.querySelectorAll('.grid-item');
-    gridItems.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            const altText = item.querySelector('img').alt;
-            
-            // Simula a abertura da imagem para colorir
-            console.log(`Você clicou no desenho: ${altText} (Índice ${index + 1}).`);
-            alert(`Abrindo a página de colorir para o ${altText}...`);
-        });
-    });
+  backButton.addEventListener("click", () => {
+    alert("Voltando para a tela anterior...");
+  });
 });
