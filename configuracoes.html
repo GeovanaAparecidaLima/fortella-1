@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configurações</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+  }
+
+  body {
+    background-color: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 10px;
+  }
+
+  .celular {
+    background-color: #0f1715;
+    width: 280px;
+    min-height: 540px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0f1715;
+    color: #f7f5f5;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+
+  header i {
+    font-size: 1.2rem;
+  }
+
+  .caixa {
+    background-color: #fff8f8;
+    margin: 40px 15px;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .opcao {
+    display: block;
+    color: #141414;
+    font-size: 0.95rem;
+    padding: 8px 0;
+    border-bottom: 1px solid #c9c9c9;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .opcao:last-child {
+    border-bottom: none;
+  }
+
+  .opcao:hover {
+    color: #2b6351;
+    padding-left: 5px;
+  }
+
+  /* MODAIS */
+  .modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff8f8;
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    animation: aparecer 0.3s ease forwards;
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal header {
+    background-color: #0f1715;
+    color: #fff;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .modal-content {
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #111;
+  }
+
+  .btn-voltar {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+  <div class="celular">
+    <header>
+      <i class="fa-solid fa-user"></i>
+      <span>Configurações</span>
+      <i class="fa-solid fa-arrow-right"></i>
+    </header>
+
+    <div class="caixa">
+      <div class="opcao" onclick="abrirModal('dados')">Dados Pessoais</div>
+      <div class="opcao" onclick="abrirModal('notificacoes')">Ajustes de Notificações</div>
+      <div class="opcao" onclick="abrirModal('seguranca')">Preferência de segurança</div>
+      <div class="opcao" onclick="abrirModal('idioma')">Idioma</div>
+      <div class="opcao" onclick="abrirModal('sair')">Sair da conta</div>
+    </div>
+
+    <!-- Modais -->
+    <div class="modal" id="modal-dados">
+      <header>
+        <button class="btn-voltar" onclick="fecharModal('dados')"><i class="fa-solid fa-arrow-left"></i></button>
+        <span>Dados Pessoais</span>
+      </header>
+      <div class="modal-content">
+        <p>Nome: Geovana Aparecida</p>
+        <p>Email: geovana@example.com</p>
+        <p>Data de Nascimento: 12/03/2005</p>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-notificacoes">
+      <header>
+        <button class="btn-voltar" onclick="fecharModal('notificacoes')"><i class="fa-solid fa-arrow-left"></i></button>
+        <span>Notificações</span>
+      </header>
+      <div class="modal-content">
+        <p>🔔 Notificações por e-mail: Ativadas</p>
+        <p>📱 Notificações por app: Desativadas</p>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-seguranca">
+      <header>
+        <button class="btn-voltar" onclick="fecharModal('seguranca')"><i class="fa-solid fa-arrow-left"></i></button>
+        <span>Preferência de Segurança</span>
+      </header>
+      <div class="modal-content">
+        <p>Autenticação em duas etapas: Ativada ✅</p>
+        <p>Dispositivos conectados: 2</p>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-idioma">
+      <header>
+        <button class="btn-voltar" onclick="fecharModal('idioma')"><i class="fa-solid fa-arrow-left"></i></button>
+        <span>Idioma</span>
+      </header>
+      <div class="modal-content">
+        <p>Idioma atual: Português (Brasil)</p>
+        <p>Outros disponíveis: 🇺🇸 English, 🇪🇸 Español</p>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-sair">
+      <header>
+        <button class="btn-voltar" onclick="fecharModal('sair')"><i class="fa-solid fa-arrow-left"></i></button>
+        <span>Sair da conta</span>
+      </header>
+      <div class="modal-content">
+        <p>Deseja realmente sair da conta?</p>
+        <button style="margin-top:10px;padding:6px 10px;border:none;background:#c0392b;color:#fff;border-radius:5px;cursor:pointer;">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function abrirModal(id) {
+      document.getElementById(`modal-${id}`).style.display = "flex";
+    }
+
+    function fecharModal(id) {
+      document.getElementById(`modal-${id}`).style.display = "none";
+    }
+  </script>
+</body>
+</html>

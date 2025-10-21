@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animais</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+  }
+
+  body {
+    background-color: #d9e4df;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 10px;
+  }
+
+  .celular {
+    background-color: #c9d9d3;
+    width: 280px;
+    min-height: 550px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  header {
+    background-color: #78a89b;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  header i {
+    font-size: 1.3rem;
+    color: #0f241e;
+  }
+
+  /* Imagem diária */
+  .imagem-diaria {
+    background-color: #4e7f73;
+    border-radius: 8px;
+    margin: 10px;
+    height: 90px;
+    padding: 10px;
+    color: #f2f2f2;
+    position: relative;
+  }
+
+  .imagem-diaria p {
+    font-size: 0.85rem;
+  }
+
+  .imagem-diaria img {
+    width: 70px;
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    transform: rotate(10deg);
+    border-radius: 6px;
+    box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
+  }
+
+  /* Seção */
+  .secao {
+    background-color: #4e7f73;
+    color: #fff;
+    font-weight: 500;
+    margin: 0 10px;
+    border-radius: 6px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .secao i {
+    color: #fff;
+  }
+
+  /* Galeria */
+  .galeria {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .galeria img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .galeria img:hover {
+    transform: scale(1.05);
+  }
+</style>
+</head>
+
+<body>
+  <div class="celular">
+    <header>
+      <i class="fa-solid fa-house"></i>
+      <span>Animais</span>
+      <i class="fa-solid fa-user"></i>
+    </header>
+
+    <div class="imagem-diaria">
+      <p>Imagem diária</p>
+      <img src="img/imagem_diaria.png" alt="Imagem diária">
+    </div>
+
+    <div class="secao">
+      <span>Animais</span>
+      <i class="fa-solid fa-arrow-left"></i>
+    </div>
+
+    <div class="galeria">
+      <img src="img/cavalo.png" alt="Cavalo">
+      <img src="img/borboleta.png" alt="Borboleta">
+      <img src="img/passaros.png" alt="Passaros">
+      <img src="img/raposa.png" alt="Raposa">
+      <img src="img/leao.png" alt="Leão">
+      <img src="img/gatos.png" alt="Gatos">
+    </div>
+  </div>
+
+<script>
+  // Ao clicar em uma imagem, salva o link e redireciona para a tela de detalhe
+  const imagens = document.querySelectorAll('.galeria img');
+  imagens.forEach(img => {
+    img.addEventListener('click', () => {
+      localStorage.setItem('imagemSelecionada', img.src);
+      window.location.href = 'detalhe.html';
+    });
+  });
+</script>
+</body>
+</html>
