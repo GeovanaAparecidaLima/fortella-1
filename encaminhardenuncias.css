@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #111;
+    height: 100vh;
+  }
+  
+  .app {
+    width: 360px;
+    height: 640px;
+    background-color: #0e1312;
+    border-radius: 35px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+  
+  /* Telas */
+  .tela {
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    height: 100%;
+    color: white;
+    background-color: #0e1312;
+    overflow-y: auto;
+  }
+  
+  .tela.ativa {
+    display: flex;
+  }
+  
+  header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  header .voltar {
+    font-size: 22px;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  h2 {
+    font-size: 18px;
+  }
+  
+  /* Cards */
+  .card {
+    background-color: #fff5f5;
+    color: #000;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .card h3 {
+    margin-bottom: 8px;
+    color: #111;
+  }
+  
+  .card button {
+    width: 100%;
+    background-color: #800020;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  /* Botão de navegação */
+  .nav {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: auto;
+    cursor: pointer;
+  }
+  
+  /* Opções (na tela Dúvidas) */
+  .opcao {
+    background-color: #97b7b0;
+    color: #000;
+    font-weight: 600;
+    text-align: center;
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  
+  /* Usuários */
+  .usuarios {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .usuarios button {
+    width: 100%;
+    background-color: #fff5f5;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    text-align: left;
+    padding-left: 20px;
+    cursor: pointer;
+  }
+
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: #0d1413;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .celular {
+    width: 320px;
+    height: 580px;
+    background-color: #101818;
+    border-radius: 25px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .tela {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ativa {
+    display: flex;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .usuario-btn {
+    background-color: #f4f4f4;
+    color: #000;
+    width: 85%;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 8px 0;
+    text-align: left;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .usuario-btn:hover {
+    background-color: #ddd;
+  }
+
+  .usuario-btn span {
+    font-size: 18px;
+  }
+
+  .denuncia-card {
+    background-color: #fff;
+    color: #000;
+    border-radius: 15px;
+    padding: 15px;
+    width: 90%;
+    margin-top: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+
+  .denuncia-card p {
+    margin: 5px 0;
+  }
+
+  .btn-voltar {
+    margin-top: auto;
+    background-color: #8B0000;
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+
+  .btn-voltar:hover {
+    background-color: #a60000;
+  }
+
+  .seta {
+    font-size: 18px;
+  }
+
