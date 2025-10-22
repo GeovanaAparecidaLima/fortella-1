@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chatbot - Fortella</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="chat-container">
+  <div class="chat-app">
     <header class="chat-header">
-      <span class="dot">💬</span>
-      <h1>CHATBOT</h1>
+      <div class="chat-user">
+        <img src="img/chatbot.jpg" alt="Bot">
+        <div class="chat-info">
+          <h2>Chatbot</h2>
+          <p id="status">Online</p>
+        </div>
+      </div>
     </header>
 
     <main class="chat-box" id="chat-box">
-      <div class="message user">
-        <p>Estou precisando de ajuda.</p>
-        <span class="time">23:40</span>
-      </div>
-
       <div class="message bot">
-        <p>Claro, me fale como posso te ajudar?</p>
-        <span class="time">23:41</span>
-      </div>
-
-      <div class="message user">
-        <p>Acabei de ser roubada!</p>
-        <span class="time">23:41</span>
+        <div class="bubble">
+          <p>Olá! Como posso te ajudar hoje?</p>
+          <span class="time">23:40</span>
+        </div>
       </div>
     </main>
 
-    <footer class="chat-input-area">
-      <input type="text" id="userInput" placeholder="Digite sua mensagem..." />
-      <button id="sendBtn">Enviar</button>
+    <footer class="chat-input">
+      <input type="text" id="userInput" placeholder="Digite sua mensagem...">
+      <button id="sendBtn">➤</button>
+      <audio id="sendSound" src="send.mp3"></audio>
+      <audio id="receiveSound" src="receive.mp3"></audio>
     </footer>
   </div>
 
