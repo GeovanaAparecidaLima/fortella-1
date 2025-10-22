@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preferência de Segurança</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+  }
+
+  body {
+    background-color: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 10px;
+  }
+
+  .celular {
+    background-color: #0f1715;
+    width: 280px;
+    min-height: 540px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0f1715;
+    color: #fff;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border-bottom: 1px solid #2b2b2b;
+  }
+
+  header i {
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  .conteudo {
+    flex: 1;
+    background-color: #f8f8f8;
+    margin: 25px 15px;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .conteudo h2 {
+    color: #141414;
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .item:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    font-size: 0.9rem;
+    color: #111;
+  }
+
+  /* Switch */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #bbb;
+    border-radius: 22px;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: #b22b2b;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(18px);
+  }
+
+  button {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #b22b2b;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  button:hover {
+    background-color: #941f1f;
+  }
+
+  footer {
+    background-color: #0f1715;
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.8rem;
+    border-top: 1px solid #2b2b2b;
+  }
+</style>
+</head>
+
+<body>
+  <div class="celular">
+    <header>
+      <a href="configuracoes.html"><i class="fa-solid fa-arrow-left"></i></a>
+      <span>Segurança</span>
+      <i class="fa-solid fa-shield-halved"></i>
+    </header>
+
+    <div class="conteudo">
+      <h2>Preferências de Segurança</h2>
+
+      <div class="item">
+        <span class="label">Autenticação de 2 Fatores</span>
+        <label class="switch">
+          <input type="checkbox" id="auth2f" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="item">
+        <span class="label">Bloqueio Automático</span>
+        <label class="switch">
+          <input type="checkbox" id="autoLock">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="item">
+        <span class="label">Reconhecimento Facial</span>
+        <label class="switch">
+          <input type="checkbox" id="faceId">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="item">
+        <span class="label">Alertas de Login</span>
+        <label class="switch">
+          <input type="checkbox" id="loginAlert" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <button onclick="salvarSeguranca()">Salvar Configurações</button>
+    </div>
+
+    <footer>
+      <p>© 2025 Sistema de Configurações</p>
+    </footer>
+  </div>
+
+  <script>
+    function salvarSeguranca() {
+      alert("Preferências de segurança salvas com sucesso!");
+    }
+  </script>
+</body>
+</html>
