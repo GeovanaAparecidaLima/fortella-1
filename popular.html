@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Populares - Fortella</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Judson:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Judson', sans-serif;
+        }
+
+        body {
+            background-color: #E5E5E5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 250px;
+            height: 500px;
+            background-color: #527D6F;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h4,
+        span {
+            font-family: "Judson", serif;
+            font-weight: 700;
+            color: #0F171C;
+        }
+
+        /* topo */
+        .header {
+            background-color: #527D6F;
+            color: #0F171C;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .header img {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* imagem diária */
+        .daily {
+            background-color: #40685C;
+            margin: 10px;
+            height: 90px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            color: #fff;
+        }
+
+        .daily img {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            object-fit: cover;
+            transform: rotate(-5deg);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* título da seção */
+        .title-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            color: #0F171C;
+        }
+
+        .title-section h4 {
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .title-section h4:hover {
+            color: #EAEAEA;
+        }
+
+        .title-section button {
+            background: transparent;
+            border: none;
+            color: #0F171C;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* galeria de imagens */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .gallery img {
+            max-width: 100px; /* limite de largura */
+            height: auto;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s, border 0.2s;
+            object-fit: contain;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.03);
+            border-color: #516e65;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- topo -->
+        <div class="header">
+            <img src="iconinicio.png" alt="Ícone Início" onclick="abrirInicio()">
+            <h4>Populares</h4>
+            <img src="iconpessoal.png" alt="Ícone perfil" onclick="abrirPerfil()">
+        </div>
+
+        <!-- imagem diária -->
+        <div class="daily">
+            <span>Imagem diária</span>
+            <img src="imgdiaria.png" alt="Imagem diária">
+        </div>
+
+        <!-- título da seção -->
+        <div class="title-section">
+            <h4 onclick="abrirChatbot()">Populares</h4>
+            <button onclick="abrirInicio()">←</button>
+        </div>
+
+        <!-- galeria -->
+        <div class="gallery">
+            <img src="tartaruga.png" alt="Desenho 1" onclick="abrirDesenho('baldeFlor.png')">
+            <img src="sapo.png" alt="Desenho 2" onclick="abrirDesenho('floress.png')">
+            <img src="polvo.png" alt="Desenho 3" onclick="abrirDesenho('flor3.png')">
+            <img src="lula.png" alt="Desenho 4" onclick="abrirDesenho('flor4.png')">
+            <img src="leao.png" alt="Desenho 5" onclick="abrirDesenho('flor5.png')">
+            <img src="fundoMar.png" alt="Desenho 6" onclick="abrirDesenho('flor6.png')">
+            <img src="coração.png" alt="Desenho 7" onclick="abrirDesenho('flor7.png')">
+        </div>
+    </div>
+
+    <script>
+        function abrirInicio() {
+            window.location.href = "inicio.html";
+        }
+
+        function abrirPerfil() {
+            window.location.href = "perfil.html";
+        }
+
+        function abrirChatbot() {
+            window.location.href = "chatbot.html";
+        }
+    
+
+        function abrirDesenho(img) {
+            window.location.href = "desenho.html?img=" + img;
+        }
+    </script>
+
+</body>
+
+</html>
