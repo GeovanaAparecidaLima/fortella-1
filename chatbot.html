@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<<<<<<< HEAD
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chatbot - Fortella</title>
@@ -16,25 +17,67 @@
           <p id="status">Online</p>
         </div>
       </div>
+=======
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="chat-app">
+    <!-- Top bar -->
+    <header class="chat-header">
+      <div class="chat-user">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot Avatar" class="avatar">
+        <div class="chat-info">
+          <h2>Assistente Fortella</h2>
+          <p id="status">Online</p>
+        </div>
+      </div>
+      <div class="chat-actions">
+        <i class="fas fa-video"></i>
+        <i class="fas fa-phone"></i>
+        <i class="fas fa-ellipsis-v"></i>
+      </div>
+>>>>>>> 28e74a80d7499eeec80a34d97d459c40c1fb35df
     </header>
 
+    <!-- Chat messages -->
     <main class="chat-box" id="chat-box">
       <div class="message bot">
         <div class="bubble">
+<<<<<<< HEAD
           <p>Olá! Como posso te ajudar hoje?</p>
+=======
+          <p>Olá! 👋 Sou a Assistente Fortella. Como posso te ajudar hoje?</p>
+>>>>>>> 28e74a80d7499eeec80a34d97d459c40c1fb35df
           <span class="time">23:40</span>
         </div>
       </div>
     </main>
 
+<<<<<<< HEAD
     <footer class="chat-input">
       <input type="text" id="userInput" placeholder="Digite sua mensagem...">
       <button id="sendBtn">➤</button>
       <audio id="sendSound" src="send.mp3"></audio>
       <audio id="receiveSound" src="receive.mp3"></audio>
+=======
+    <!-- Input area -->
+    <footer class="chat-input">
+      <i class="fas fa-plus"></i>
+      <input type="text" id="userInput" placeholder="Digite uma mensagem..." />
+      <i class="fas fa-microphone"></i>
+      <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+>>>>>>> 28e74a80d7499eeec80a34d97d459c40c1fb35df
     </footer>
   </div>
 
+  <!-- Sons -->
+  <audio id="sendSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2d9b9f6bb3.mp3?filename=pop-94319.mp3"></audio>
+  <audio id="receiveSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1a0c9b6f61.mp3?filename=pop-94320.mp3"></audio>
+
+  <script src="https://kit.fontawesome.com/a2d04a1a6d.js" crossorigin="anonymous"></script>
   <script src="script.js"></script>
 </body>
 </html>

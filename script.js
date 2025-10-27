@@ -403,3 +403,176 @@ function botReply(userText, typingDiv) {
     statusText.innerText = "Online";
   }, 800);
 }
+
+/*Chatbot */
+const chatbox = document.getElementById("chat-box");
+const userinput = document.getElementById("userInput");
+const sendbtn = document.getElementById("sendBtn");
+const sendSound = document.getElementById("sendSound");
+const receiveSound = document.getElementById("receiveSound");
+const statusText = document.getElementById("status");
+
+function getTime() {
+  const now = new Date();
+  return now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
+function addMessage(text, sender) {
+  const msg = document.createElement("div");
+  msg.classList.add("message", sender);
+
+  const bubble = document.createElement("div");
+  bubble.classList.add("bubble");
+  bubble.innerHTML = `<p>${text}</p><span class="time">${getTime()}</span>`;
+  msg.appendChild(bubble);
+
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  if (sender === "bot") receiveSound.play();
+  else sendSound.play();
+}
+
+// Enviar mensagem
+sendBtn.addEventListener("click", () => {
+  const text = userInput.value.trim();
+  if (text === "") return;
+
+  addMessage(text, "user");
+  userInput.value = "";
+
+  showTyping();
+  setTimeout(() => botReply(text), 2000);
+});
+
+userInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendBtn.click();
+});
+
+// “Digitando...” animação
+function showTyping() {
+  const typingDiv = document.createElement("div");
+  typingDiv.classList.add("typing");
+  typingDiv.innerHTML = `<div class="dot"></div><div class="dot"></div><div class="dot"></div>`;
+  chatBox.appendChild(typingDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return typingDiv;
+}
+
+// Lógica do chatbot
+function botReply(userText) {
+  document.querySelector(".typing")?.remove();
+  statusText.innerText = "Digitando...";
+
+  let response = "Desculpe, não entendi. Pode explicar melhor?";
+  userText = userText.toLowerCase();
+
+  if (userText.includes("ajuda")) {
+    response = "Claro! Você pode me contar o que aconteceu?";
+  } else if (userText.includes("roub")) {
+    response = "Sinto muito 😢. Deseja que eu envie um alerta para seus contatos de emergência?";
+  } else if (userText.includes("sim")) {
+    response = "🚨 Alerta enviado! Mantenha-se em local seguro até a ajuda chegar.";
+  } else if (userText.includes("não")) {
+    response = "Tudo bem, estou aqui se precisar de algo mais.";
+  } else if (userText.includes("obrigad")) {
+    response = "De nada 💛. Estarei sempre aqui para ajudar!";
+  }
+
+  setTimeout(() => {
+    addMessage(response, "bot");
+    statusText.innerText = "Online";
+  }, 1500);
+}
+
+/*tela coração*/
+// DOM elements
+const imageGrid = document.getElementById('imageGrid');
+const modal = document.getElementById('imgModal');
+const modalImg = document.getElementById('modalImg');
+const modalCaption = document.getElementById('modalCaption');
+const modalClose = document.getElementById('modalClose');
+const menuBtn = document.getElementById('profileBtn');
+const sidebar = document.getElementById('sidebar'); // in case sidebar exists
+const backBtn = document.getElementById('backBtn');
+const themeInfo = document.getElementById('themeInfo');
+
+// ensure variables exist when user customized files
+if (!imageGrid) throw new Error('Elemento imageGrid não encontrado (verifique id).');
+
+// Open modal when clicking image (delegation)
+imageGrid.addEventListener('click', (e) => {
+  const img = e.target.closest('img.grid-img');
+  if (!img) return;
+  openModal(img);
+});
+
+imageGrid.addEventListener('keydown', (e) => {
+  // allow Enter/Space to open when focused
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('img.grid-img')) {
+    e.preventDefault();
+    openModal(e.target);
+  }
+});
+
+function openModal(img){
+  modal.setAttribute('aria-hidden','false');
+  modalImg.src = img.src;
+  modalImg.alt = img.alt || '';
+  modalCaption.textContent = img.alt || '';
+  document.body.style.overflow = 'hidden';
+  modalImg.focus?.();
+}
+
+function closeModal(){
+  modal.setAttribute('aria-hidden','true');
+  modalImg.src = '';
+  modalCaption.textContent = '';
+  document.body.style.overflow = '';
+}
+
+// modal close handlers
+modalClose.addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+// Back button example
+backBtn?.addEventListener('click', () => { window.history.back(); });
+
+// Optional sidebar toggle (if implemented)
+if (menuBtn && sidebar){
+  menuBtn.addEventListener('click', (e) => {
+    const isOpen = sidebar.style.right === '0px';
+    sidebar.style.right = isOpen ? '-230px' : '0px';
+  });
+  // click outside to close
+  document.addEventListener('click', (e) => {
+    if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) sidebar.style.right = '-230px';
+  });
+}
+
+// Theme detection info (using prefers-color-scheme)
+const darkQuery = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+function updateThemeInfo(){
+  const mode = darkQuery.matches ? 'Escuro' : 'Claro';
+  if (themeInfo) themeInfo.textContent = `Tema: ${mode}`;
+}
+updateThemeInfo();
+darkQuery.addEventListener?.('change', updateThemeInfo);
+
+// make header padding adapt if header height changes (robust)
+(function syncHeaderPadding(){
+  const header = document.getElementById('appHeader');
+  function setPadding(){
+    const h = header.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--header-height', `${h}px`);
+    document.body.style.paddingTop = `calc(${h}px + 18px)`;
+  }
+  setPadding();
+  window.addEventListener('resize', setPadding);
+})();
+// Garantir que o modal esteja fechado ao carregar
+window.addEventListener("DOMContentLoaded", () => {
+  modal.setAttribute("aria-hidden", "true");
+  modal.style.display = "none";
+});

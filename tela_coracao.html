@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Coração — Galeria</title>
+
+  <!-- estilos -->
+  <link rel="stylesheet" href="style.css"/>  <!-- ícones -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header id="appHeader" class="app-header" role="banner" aria-label="Cabeçalho da aplicação">
+    <div class="left">
+      <button id="homeBtn" class="icon-btn" aria-label="Início">
+        <i class="fa-solid fa-house"></i>
+      </button>
+      <h1 class="title">Coração</h1>
+    </div>
+
+    <div class="right">
+      <button id="themeInfo" class="text-muted" aria-hidden="true" title="Tema do sistema"></button>
+      <button id="profileBtn" class="icon-btn" aria-label="Perfil">
+        <i class="fa-solid fa-user"></i>
+      </button>
+    </div>
+  </header>
+
+  <main id="mainContent" class="site-main" role="main">
+    <section class="card daily-card" aria-labelledby="dailyTitle">
+      <h2 id="dailyTitle" class="card-title">Imagem diária</h2>
+      <figure class="daily-figure" title="Imagem diária">
+        <img src="img/imagem_diaria.png" alt="Imagem diária" class="daily-img" />
+      </figure>
+    </section>
+
+    <section class="card gallery-card" aria-labelledby="galleryTitle">
+      <div class="gallery-header">
+        <h2 id="galleryTitle" class="card-title">Coração</h2>
+        <button id="backBtn" class="ghost-btn" aria-label="Voltar"><i class="fa-solid fa-arrow-left"></i></button>
+      </div>
+
+      <div class="grid image-grid" id="imageGrid" aria-live="polite">
+        <!-- imagens de exemplo -->
+        <img src="img/Imagem1.png" alt="Desenho 1" tabindex="0" class="grid-img" />
+        <img src="img/Imagem2.png" alt="Desenho 2" tabindex="0" class="grid-img" />
+        <img src="img/Imagem3.png" alt="Desenho 3" tabindex="0" class="grid-img" />
+        <img src="img/Imagem4.png" alt="Desenho 4" tabindex="0" class="grid-img" />
+        <img src="img/Imagem5.png" alt="Desenho 5" tabindex="0" class="grid-img" />
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal para ampliar imagem -->
+  <div id="imgModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" style="display: none;">
+    <div class="modal-inner">
+      <button id="modalClose" class="modal-close" aria-label="Fechar">&times;</button>
+      <img id="modalImg" class="modal-img" alt="" />
+      <p id="modalCaption" class="modal-caption"></p>
+    </div>
+  </div>
+</body>
+ <link rel="script" href="script.js"/>
+</html>
+
