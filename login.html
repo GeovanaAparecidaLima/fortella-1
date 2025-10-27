@@ -4,16 +4,145 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Fortella</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* ===== BODY ===== */
+    body {
+      background-color: #0f161b; /* Fundo escuro */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* ===== CONTAINER ===== */
+    .container {
+      text-align: center;
+      width: 320px;
+    }
+
+    /* ===== LOGO E TÍTULO ===== */
+    .logo {
+      width: 90px;
+      margin: 0 auto 15px;
+      filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.3));
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: #fdfdfd;
+      padding: 25px 20px;
+      border-radius: 15px;
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 0.8s ease;
+    }
+
+    /* ===== LABELS ===== */
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #222;
+    }
+
+    /* ===== INPUTS ===== */
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #800019;
+      background-color: #fff;
+      box-shadow: 0px 0px 6px rgba(128, 0, 25, 0.6);
+    }
+
+    /* ===== LINK ===== */
+    .forgot {
+      display: block;
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 12px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .forgot:hover {
+      color: #800019;
+      text-decoration: underline;
+    }
+
+    /* ===== BOTÕES ===== */
+    button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 25px;
+      border: none;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Botão principal */
+    .btn-primary {
+      background: linear-gradient(135deg, #800019, #a31d34);
+      color: white;
+      box-shadow: 0px 4px 10px rgba(128, 0, 25, 0.5);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #a31d34, #800019);
+      transform: scale(1.03);
+    }
+
+    /* Botão secundário */
+    .btn-secondary {
+      background: #d4baba;
+      color: #222;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary:hover {
+      background: #c9a8a8;
+      transform: scale(1.03);
+    }
+
+    /* ===== ANIMAÇÃO ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-  <body class="body2"></body>
   <div class="container">
     <h1>FORTELLA</h1>
-    <img src="img/logo_1.png" alt="Logo Fortella" class="logo">
-  <div class="container">
-    <h1>FORTELLA</h1>
-    <img src="img/logo.png" alt="Logo Fortella" class="logo">
+    <img src="logo.png" alt="Logo Fortella" class="logo">
 
     <div class="card">
       <form id="loginForm">
@@ -31,6 +160,30 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const form = document.getElementById("loginForm");
+    const btnCadastrar = document.getElementById("btnCadastrar");
+
+    // Evento de login
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value.trim();
+
+      if (email === "" || senha === "") {
+        alert("Por favor, preencha todos os campos!");
+      } else {
+        alert("Login realizado com sucesso!");
+        window.location.href = "tela_inicio.html"; // Redireciona para página principal
+      }
+    });
+
+    // Evento de cadastro
+    btnCadastrar.addEventListener("click", function() {
+      alert("Redirecionando para a tela de cadastro...");
+      window.location.href = "cadastro.html"; // Redireciona para o cadastro
+    });
+  </script>
 </body>
 </html>
