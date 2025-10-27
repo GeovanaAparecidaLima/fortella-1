@@ -1,230 +1,173 @@
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+/* tela de login */ 
+/* ===== RESET ===== */
+>>>>>>> Stashed changes
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
   
+  /* ===== BODY ===== */
   body {
+    background-color: #0f161b; /* Fundo escuro */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #111;
     height: 100vh;
   }
   
-  .app {
-    width: 360px;
-    height: 640px;
-    background-color: #0e1312;
-    border-radius: 35px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  }
-  
-  /* Telas */
-  .tela {
-    display: none;
-    flex-direction: column;
-    padding: 20px;
-    height: 100%;
-    color: white;
-    background-color: #0e1312;
-    overflow-y: auto;
-  }
-  
-  .tela.ativa {
-    display: flex;
-  }
-  
-  header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  header .voltar {
-    font-size: 22px;
-    cursor: pointer;
-    user-select: none;
-  }
-  
-  h2 {
-    font-size: 18px;
-  }
-  
-  /* Cards */
-  .card {
-    background-color: #fff5f5;
-    color: #000;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 15px;
-  }
-  
-  .card h3 {
-    margin-bottom: 8px;
-    color: #111;
-  }
-  
-  .card button {
-    width: 100%;
-    background-color: #800020;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    padding: 10px;
-    font-size: 14px;
-    margin-top: 10px;
-    cursor: pointer;
-  }
-  
-  /* Botão de navegação */
-  .nav {
-    background-color: #444;
-    color: #fff;
-    border: none;
-    border-radius: 20px;
-    padding: 10px;
-    font-size: 14px;
-    margin-top: auto;
-    cursor: pointer;
-  }
-  
-  /* Opções (na tela Dúvidas) */
-  .opcao {
-    background-color: #97b7b0;
-    color: #000;
-    font-weight: 600;
+  /* ===== CONTAINER ===== */
+  .container {
     text-align: center;
-    padding: 25px;
-    border-radius: 10px;
-    margin-top: 10px;
-  }
-  
-  /* Usuários */
-  .usuarios {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .usuarios button {
-    width: 100%;
-    background-color: #fff5f5;
-    color: #000;
-    border: none;
-    border-radius: 10px;
-    padding: 12px;
-    font-size: 16px;
-    text-align: left;
-    padding-left: 20px;
-    cursor: pointer;
-  }
-
-  body {
-    font-family: "Poppins", sans-serif;
-    background-color: #0d1413;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
-
-  .celular {
     width: 320px;
-    height: 580px;
-    background-color: #101818;
-    border-radius: 25px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    overflow: hidden;
-    position: relative;
   }
-
-  .tela {
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    display: none;
-    flex-direction: column;
-    align-items: center;
+  
+  /* ===== LOGO E TÍTULO ===== */
+  .logo {
+    width: 90px;
+    margin: 0 auto 15px;
+    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.3));
   }
-
-  .ativa {
-    display: flex;
+  
+  h1 {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
   }
-
-  h2 {
-    text-align: center;
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-
-  .usuario-btn {
-    background-color: #f4f4f4;
-    color: #000;
-    width: 85%;
-    padding: 12px;
-    border-radius: 10px;
-    margin: 8px 0;
-    text-align: left;
-    font-weight: 500;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-  .usuario-btn:hover {
-    background-color: #ddd;
-  }
-
-  .usuario-btn span {
-    font-size: 18px;
-  }
-
-  .denuncia-card {
-    background-color: #fff;
-    color: #000;
+  
+  /* ===== CARD ===== */
+  .card {
+    background: #fdfdfd;
+    padding: 25px 20px;
     border-radius: 15px;
-    padding: 15px;
-    width: 90%;
-    margin-top: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.8s ease;
   }
-
-  .denuncia-card p {
-    margin: 5px 0;
-  }
-
-  .btn-voltar {
-    margin-top: auto;
-    background-color: #8B0000;
-    color: #fff;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
+  
+  /* ===== LABELS ===== */
+  label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
     font-size: 14px;
-    transition: background 0.3s;
+    font-weight: 600;
+    color: #222;
   }
-
-  .btn-voltar:hover {
-    background-color: #a60000;
+  
+  /* ===== INPUTS ===== */
+  input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    transition: all 0.3s ease;
+    outline: none;
   }
-
-  .seta {
-    font-size: 18px;
+  
+  input:focus {
+    border-color: #800019;
+    background-color: #fff;
+    box-shadow: 0px 0px 6px rgba(128, 0, 25, 0.6);
   }
+  
+  /* ===== LINK ===== */
+  .forgot {
+    display: block;
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 12px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  
+  .forgot:hover {
+    color: #800019;
+    text-decoration: underline;
+  }
+  
+  /* ===== BOTÕES ===== */
+  button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Botão principal */
+  .btn-primary {
+    background: linear-gradient(135deg, #800019, #a31d34);
+    color: white;
+    box-shadow: 0px 4px 10px rgba(128, 0, 25, 0.5);
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #a31d34, #800019);
+    transform: scale(1.03);
+  }
+  
+  /* Botão secundário */
+  .btn-secondary {
+    background: #d4baba;
+    color: #222;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  }
+  
+  .btn-secondary:hover {
+    background: #c9a8a8;
+    transform: scale(1.03);
+  }
+  
+  /* ===== ANIMAÇÃO ===== */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .body1{
+  background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.body2{
+  background-color: #0f161b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
+/*chatbot*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html, body {
+  height: 100%;
+  background-color: #ece5dd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+<<<<<<< Updated upstream
   .teste{
     background-color: red;
   }
@@ -244,6 +187,8 @@ html, body {
   align-items: center;
 }
 
+=======
+>>>>>>> Stashed changes
 .chat-app {
   background-color: #fff;
   width: 100%;
@@ -408,6 +353,7 @@ html, body {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+<<<<<<< Updated upstream
 =======
 /* tela de login */ 
 /* ===== RESET ===== */
@@ -913,3 +859,5 @@ body{
 .grid-img:focus{ outline: 4px solid rgba(0,128,96,0.18); transform:scale(1.03); }
 /* end */
 >>>>>>> 28e74a80d7499eeec80a34d97d459c40c1fb35df
+=======
+>>>>>>> Stashed changes
