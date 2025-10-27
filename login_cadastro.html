@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortella - Login e Cadastro</title>
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0f161b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      width: 340px;
+      background: #fdfdfd;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      padding: 25px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    h1 {
+      color: #800019;
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .logo {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #800019;
+      background-color: #fff;
+      box-shadow: 0px 0px 6px rgba(128, 0, 25, 0.6);
+    }
+
+    .forgot {
+      display: block;
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 12px;
+      text-decoration: none;
+    }
+
+    .forgot:hover {
+      color: #800019;
+      text-decoration: underline;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 25px;
+      border: none;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #800019, #a31d34);
+      color: white;
+      box-shadow: 0px 4px 10px rgba(128, 0, 25, 0.5);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.03);
+    }
+
+    .btn-secondary {
+      background: #d4baba;
+      color: #222;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: #c9a8a8;
+      transform: scale(1.03);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="img/logo2.png" alt="Logo Fortella" class="logo">
+    <h1>FORTELLA</h1>
+
+    <!-- LOGIN -->
+    <div id="loginCard">
+      <form id="loginForm">
+        <label for="emailLogin">E-mail:</label>
+        <input type="email" id="emailLogin" placeholder="Digite seu e-mail" required>
+
+        <label for="senhaLogin">Senha:</label>
+        <input type="password" id="senhaLogin" placeholder="Digite sua senha" required>
+
+        <a href="#" class="forgot">Esqueci minha senha</a>
+
+        <button type="submit" class="btn-primary">Entrar</button>
+        <button type="button" id="abrirCadastro" class="btn-secondary">Cadastrar</button>
+      </form>
+    </div>
+
+    <!-- CADASTRO -->
+    <div id="cadastroCard" class="hidden">
+      <form id="cadastroForm">
+        <label for="nome">Nome completo:</label>
+        <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+        <label for="genero">Gênero:</label>
+        <input type="text" id="genero" placeholder="Ex: Feminino, Masculino..." required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" placeholder="(XX) XXXXX-XXXX" required>
+
+        <label for="emailCadastro">E-mail:</label>
+        <input type="email" id="emailCadastro" placeholder="Digite seu e-mail" required>
+
+        <label for="senhaCadastro">Senha:</label>
+        <input type="password" id="senhaCadastro" placeholder="Digite sua senha" required>
+
+        <label for="confirmarSenha">Confirmar senha:</label>
+        <input type="password" id="confirmarSenha" placeholder="Repita sua senha" required>
+
+        <button type="submit" class="btn-primary">Finalizar Cadastro</button>
+        <button type="button" id="voltarLogin" class="btn-secondary">Voltar</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // === ELEMENTOS ===
+    const loginCard = document.getElementById("loginCard");
+    const cadastroCard = document.getElementById("cadastroCard");
+    const abrirCadastro = document.getElementById("abrirCadastro");
+    const voltarLogin = document.getElementById("voltarLogin");
+
+    // === TROCAR TELAS ===
+    abrirCadastro.addEventListener("click", () => {
+      loginCard.classList.add("hidden");
+      cadastroCard.classList.remove("hidden");
+    });
+
+    voltarLogin.addEventListener("click", () => {
+      cadastroCard.classList.add("hidden");
+      loginCard.classList.remove("hidden");
+    });
+
+    // === LOGIN ===
+    const formLogin = document.getElementById("loginForm");
+    formLogin.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("emailLogin").value;
+      const senha = document.getElementById("senhaLogin").value;
+
+      if (email === "" || senha === "") {
+        alert("Por favor, preencha todos os campos!");
+      } else {
+        alert("Login realizado com sucesso!");
+        window.location.href = "tela_inicio.html";
+      }
+    });
+
+    // === CADASTRO ===
+    const formCadastro = document.getElementById("cadastroForm");
+    formCadastro.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const senha = document.getElementById("senhaCadastro").value;
+      const confirmar = document.getElementById("confirmarSenha").value;
+
+      if (senha !== confirmar) {
+        alert("As senhas não coincidem!");
+        return;
+      }
+
+      alert("Cadastro realizado com sucesso!");
+      window.location.href = "tela_inicio.html";
+    });
+  </script>
+</body>
+</html>
