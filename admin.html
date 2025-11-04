@@ -3,24 +3,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Painel Admin — Fortella</title>
+  <title>Fortella — Painel Administrativo</title>
+
+  <!-- CSS (coloque o arquivo em /css/style.css) -->
   <link rel="stylesheet" href="admin.css" />
+  <!-- FontAwesome (ícones) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
   <header class="topo">
-    <div class="topo-left"><a class="brand" href="#">Administrador</a></div>
+    <div class="topo-left">
+      <a class="brand" href="#">FORTELLA</a>
+    </div>
     <div class="topo-right">Olá, Admin <i class="fa-solid fa-user-circle"></i></div>
   </header>
 
   <main class="painel">
-    <nav class="tabs">
-      <button class="tab active" data-tab="locais">Locais Seguros</button>
-      <button class="tab" data-tab="denuncias">Denúncias</button>
-      <button class="tab" data-tab="usuarios">Usuários</button>
+    <nav class="tabs" role="tablist" aria-label="Seções do painel">
+      <button class="tab active" data-tab="locais" role="tab" aria-selected="true">Locais Seguros</button>
+      <button class="tab" data-tab="denuncias" role="tab" aria-selected="false">Denúncias</button>
+      <button class="tab" data-tab="usuarios" role="tab" aria-selected="false">Usuários</button>
     </nav>
 
-    <!-- LOCAIS -->
+    <!-- ===== LOCAIS ===== -->
     <section class="tab-panel" id="locais" data-visible>
       <div class="panel-header">
         <h1>Gerenciar Locais Seguros</h1>
@@ -33,8 +38,9 @@
       <div class="controls">
         <div class="search">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input id="searchLocais" placeholder="Pesquisar por nome ou endereço">
+          <input id="searchLocais" placeholder="Pesquisar por nome ou endereço" />
         </div>
+
         <select id="filtroCategoria">
           <option value="">Categoria</option>
           <option>Hospital</option>
@@ -44,6 +50,7 @@
           <option>Casa</option>
           <option>Trabalho</option>
         </select>
+
         <select id="filtroStatus">
           <option value="">Status</option>
           <option>Ativo</option>
@@ -52,7 +59,8 @@
       </div>
 
       <div class="tabela-wrap">
-        <table id="tabelaLocais" class="tabela">
+        <table id="tabelaLocais" class="tabela" aria-describedby="locaisDesc">
+          <caption id="locaisDesc" class="sr-only">Lista de locais seguros</caption>
           <thead>
             <tr><th>Nome</th><th>Endereço</th><th>Categoria</th><th>Status</th><th>Ações</th></tr>
           </thead>
@@ -61,7 +69,7 @@
       </div>
     </section>
 
-    <!-- DENÚNCIAS -->
+    <!-- ===== DENÚNCIAS ===== -->
     <section class="tab-panel" id="denuncias">
       <div class="panel-header">
         <h1>Gerenciar Denúncias</h1>
@@ -74,27 +82,45 @@
       <div class="controls">
         <div class="search">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input id="searchDenuncias" placeholder="Pesquisar por número ou palavra-chave">
+          <input id="searchDenuncias" placeholder="Pesquisar por número, tipo ou palavra-chave" />
         </div>
+
+        <select id="filtroStatusDen">
+          <option value="">Filtrar por status</option>
+          <option>Aberta</option>
+          <option>Encaminhada</option>
+          <option>Fechada</option>
+        </select>
+
         <button id="exportarDenuncias" class="btn outline"><i class="fa-solid fa-file-export"></i> Exportar Relatório</button>
       </div>
 
       <div class="tabela-wrap">
-        <table id="tabelaDenuncias" class="tabela">
+        <table id="tabelaDenuncias" class="tabela" aria-describedby="denunciasDesc">
+          <caption id="denunciasDesc" class="sr-only">Lista de denúncias</caption>
           <thead>
-            <tr><th>#</th><th>Data/Hora</th><th>Tipo</th><th>Status</th><th>Ações</th></tr>
+            <tr>
+              <th><input type="checkbox" id="checkAllDen" aria-label="Selecionar todas denúncias"></th>
+              <th>#</th>
+              <th>Data/Hora</th>
+              <th>Tipo</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
 
       <div class="bottom-actions">
-        <button id="btnEncaminharSelecionadas" class="btn dark">Encaminhar</button>
+        <button id="btnEncaminharSelecionadas" class="btn dark"><i class="fa-solid fa-paper-plane">
+          
+        </i> Encaminhar Selecionadas</button>
         <button id="btnAlterarSelecionadas" class="btn light">Alterar</button>
       </div>
     </section>
 
-    <!-- USUÁRIOS -->
+    <!-- ===== USUÁRIOS ===== -->
     <section class="tab-panel" id="usuarios">
       <div class="panel-header">
         <h1>Gerenciar Usuários</h1>
@@ -106,8 +132,9 @@
       <div class="controls">
         <div class="search">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input id="searchUsuarios" placeholder="Pesquisar por nome ou e-mail">
+          <input id="searchUsuarios" placeholder="Pesquisar por nome ou e-mail" />
         </div>
+
         <select id="filtroPapel">
           <option value="">Papel</option>
           <option>Admin</option>
@@ -117,7 +144,8 @@
       </div>
 
       <div class="tabela-wrap">
-        <table id="tabelaUsuarios" class="tabela">
+        <table id="tabelaUsuarios" class="tabela" aria-describedby="usuariosDesc">
+          <caption id="usuariosDesc" class="sr-only">Lista de usuários</caption>
           <thead>
             <tr><th>Nome</th><th>E-mail</th><th>Papel</th><th>Status</th><th>Ações</th></tr>
           </thead>
@@ -129,16 +157,17 @@
 
   <!-- MODAL GENERICO -->
   <div id="modal" class="modal hidden" role="dialog" aria-hidden="true">
-    <div class="modal-card">
+    <div class="modal-card" role="document">
       <header class="modal-header">
         <h2 id="modalTitle">Título</h2>
-        <button id="modalClose" class="btn icon"><i class="fa-solid fa-xmark"></i></button>
+        <button id="modalClose" class="btn icon" aria-label="Fechar modal"><i class="fa-solid fa-xmark"></i></button>
       </header>
       <div id="modalBody" class="modal-body"></div>
       <footer class="modal-footer" id="modalFooter"></footer>
     </div>
   </div>
 
+  <!-- JS (coloque o arquivo em /js/script.js) -->
   <script src="admin.js"></script>
 </body>
 </html>
